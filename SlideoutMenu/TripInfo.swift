@@ -11,6 +11,33 @@ import MapKit
 
 extension NSDate
 {
+    func year() -> Int
+    {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Year, fromDate: self)
+        let year = components.year
+        
+        return year
+    }
+    
+    func month() -> Int
+    {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Month, fromDate: self)
+        let month = components.month
+        
+        return month
+    }
+    
+    func day() -> Int
+    {
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Day, fromDate: self)
+        let day = components.day
+        
+        return day
+    }
+    
     func hour() -> Int
     {
         //Get Hour
@@ -67,6 +94,25 @@ extension NSDate
     }
 }
 
+struct TimeStamp {
+    var year: Int
+    var month: Int
+    var day: Int
+    
+    var hour: Int
+    var minute: Int
+}
+
+struct TripInfoForMem {
+    var startTimeStamp: TimeStamp
+    var stopTimeStamp: TimeStamp
+    
+    var paymentFromAdvertisers: [Double]
+    
+    var tripPath: [CLLocationCoordinate2D]
+    var tripDisplacement: Double
+}
+
 class TripInfo {
     
     //Define payment parameters
@@ -107,9 +153,13 @@ class TripInfo {
     var advertiserLocations: [[CLLocationCoordinate2D]] = []
     var distanceFromAdvertisers: [[Double]] = []
     
-    //Data storage arrays
+    //Data storage
     var paymentFromAdvertisers: [Double] = []
     var tripPath: [CLLocationCoordinate2D] = []
+    var startTimeStamp: TimeStamp!
+    var stopTimeStamp: TimeStamp!
+    
+    var storageCell: TripInfoForMem!
     
     //Class methods
     init(advertisers: [Advertiser], startingPosition: CLLocationCoordinate2D) {
@@ -233,6 +283,21 @@ class TripInfo {
         previousTimeSeconds = currentTimeSeconds
     }
     
+    func makeTimeStamp() -> TimeStamp {
+        let currentDate = NSDate()
+        let timeStamp = TimeStamp(year: currentDate.year(), month: currentDate.month(), day: currentDate.day(), hour: currentDate.hour(), minute: currentDate.minute())
+        return timeStamp
+    }
+    
+    func startNewTrip() {
+        startTimeStamp = makeTimeStamp()
+    }
+    
+    func save() {
+        stopTimeStamp = makeTimeStamp()
+        storageCell = TripInfoForMem(startTimeStamp: startTimeStamp, stopTimeStamp: stopTimeStamp, paymentFromAdvertisers: paymentFromAdvertisers, tripPath: tripPath, tripDisplacement: tripDisplacement)
+    }
+    
     func resetForNewTrip() {
         incrimentalDisplacement = 0.0
         tripDisplacement = 0.0
@@ -252,6 +317,8 @@ class TripInfo {
         for index in 0...(paymentFromAdvertisers.count - 1) {
             paymentFromAdvertisers[index] = 0.0
         }
+        
+        storageCell = nil
     }
     
 }

@@ -30,7 +30,7 @@ class Driver {
     var advertisers: [Advertiser]!
     
     //history
-    var tripLog: [TripInfo] = []
+    var tripLog: [TripInfoForMem] = []
     
     
     init(UsrNm: String, PsWrd: String, Nm: String, CrCmnpy: String, CrMdl: String, CrYr: Int, Adrss: String, Cty: String) {

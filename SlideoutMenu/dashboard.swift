@@ -193,9 +193,11 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     //centers map on current location; calcaulte distance, displacement and velocity; calculate positions for polyLine overlay
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if startState != previousStartState && startState == true {
-            
+            currentTrip.startNewTrip()
         } else if startState != previousStartState && startState == false {
-            currentUser.tripLog.append(currentTrip)
+            currentTrip.save()
+            currentUser.tripLog.append(currentTrip.storageCell)
+            
             currentTripLog.removeAll()
             currentTrip.resetForNewTrip()
         }
