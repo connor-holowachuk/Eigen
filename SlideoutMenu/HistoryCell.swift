@@ -8,11 +8,13 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class HistoryCell: UITableViewCell {
+class HistoryCell: UITableViewCell, MKMapViewDelegate {
     
     @IBOutlet weak var HeadingLabel: UILabel!
     @IBOutlet weak var SubheadingLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
     
     
     override func awakeFromNib() {

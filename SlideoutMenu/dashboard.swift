@@ -195,6 +195,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         if startState != previousStartState && startState == true {
             currentTrip.startNewTrip()
         } else if startState != previousStartState && startState == false {
+            currentTrip.tripPath = currentTripLog
             currentTrip.save()
             currentUser.tripLog.append(currentTrip.storageCell)
             
@@ -218,9 +219,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         for index in 0...(advertiserArray.count - 1) {
             if advertiserArray[index].locations == nil {
                 advertiserArray[index].locations = advertiserLocationsArray[index]
-            }
-            for newIndex in 0...(advertiserArray[index].locations.count - 1) {
-                //businessDistance = calcDistance(center, locationB: advertiserArray[index].locations[newIndex])
             }
         }
         

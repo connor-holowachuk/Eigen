@@ -443,25 +443,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nOc-97-5MY">
-                                                    <rect key="frame" x="138" y="8" width="454" height="21"/>
+                                                    <rect key="frame" x="181" y="8" width="411" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAx-RP-mSK">
-                                                    <rect key="frame" x="138" y="37" width="454" height="21"/>
+                                                    <rect key="frame" x="181" y="37" width="411" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YfB-GY-s5V">
+                                                    <rect key="frame" x="8" y="12" width="127" height="128"/>
+                                                </mapView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="DAx-RP-mSK" firstAttribute="trailing" secondItem="cDH-Gy-T8j" secondAttribute="trailingMargin" id="7NJ-sk-Cyq"/>
                                                 <constraint firstItem="DAx-RP-mSK" firstAttribute="top" secondItem="nOc-97-5MY" secondAttribute="bottom" constant="8" id="EmE-Mb-g5c"/>
+                                                <constraint firstItem="DAx-RP-mSK" firstAttribute="leading" secondItem="YfB-GY-s5V" secondAttribute="trailing" constant="46" id="FJs-Oo-ckB"/>
                                                 <constraint firstItem="nOc-97-5MY" firstAttribute="trailing" secondItem="cDH-Gy-T8j" secondAttribute="trailingMargin" id="HYe-HU-E96"/>
-                                                <constraint firstItem="DAx-RP-mSK" firstAttribute="leading" secondItem="cDH-Gy-T8j" secondAttribute="leadingMargin" constant="130" id="Ki8-e8-HO8"/>
-                                                <constraint firstItem="nOc-97-5MY" firstAttribute="leading" secondItem="cDH-Gy-T8j" secondAttribute="leadingMargin" constant="130" id="NXA-Ft-2CN"/>
+                                                <constraint firstItem="DAx-RP-mSK" firstAttribute="leading" secondItem="cDH-Gy-T8j" secondAttribute="leadingMargin" constant="173" id="Ki8-e8-HO8"/>
+                                                <constraint firstItem="nOc-97-5MY" firstAttribute="leading" secondItem="cDH-Gy-T8j" secondAttribute="leadingMargin" constant="173" id="NXA-Ft-2CN"/>
+                                                <constraint firstItem="YfB-GY-s5V" firstAttribute="leading" secondItem="cDH-Gy-T8j" secondAttribute="leadingMargin" id="Wq4-6d-dPP"/>
+                                                <constraint firstItem="YfB-GY-s5V" firstAttribute="top" secondItem="cDH-Gy-T8j" secondAttribute="topMargin" constant="4" id="YdQ-su-6pB"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="DAx-RP-mSK" secondAttribute="bottom" constant="84.5" id="bHE-gQ-JfJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="YfB-GY-s5V" secondAttribute="bottom" constant="2.5" id="exM-OB-irr"/>
                                                 <constraint firstItem="nOc-97-5MY" firstAttribute="top" secondItem="cDH-Gy-T8j" secondAttribute="topMargin" id="sB4-SP-B0w"/>
                                                 <constraint firstItem="DAx-RP-mSK" firstAttribute="top" secondItem="nOc-97-5MY" secondAttribute="bottom" constant="8" id="sdm-yZ-tKd"/>
                                             </constraints>
@@ -469,6 +476,7 @@
                                         <connections>
                                             <outlet property="HeadingLabel" destination="nOc-97-5MY" id="Pnv-AC-UXk"/>
                                             <outlet property="SubheadingLabel" destination="DAx-RP-mSK" id="F1H-0e-Kc0"/>
+                                            <outlet property="mapView" destination="YfB-GY-s5V" id="JDC-vc-4ZA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
