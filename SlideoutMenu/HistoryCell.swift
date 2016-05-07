@@ -27,4 +27,22 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
         
         // Configure the view for the selected state
     }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        print("sup?")
+        if overlay is MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: overlay)
+            circleRenderer.fillColor = UIColor(hex: 0x4AD5C6).colorWithAlphaComponent(0.1)
+            circleRenderer.strokeColor = UIColor.clearColor()
+            circleRenderer.lineWidth = 1
+            return circleRenderer
+        } else {
+            let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
+            polyLineRenderer.strokeColor = UIColor(hex: 0x4AD5C6)
+            polyLineRenderer.lineWidth = 5
+            polyLineRenderer.lineCap = CGLineCap.Round
+            return polyLineRenderer
+        }
+        
+    }
 }

@@ -131,7 +131,7 @@ class TripInfo {
     let royaltyFromDriver: Double = 0.20
     
     var totalTripPayment: Double = 0.0
-    
+    var currentRate: Double = 0.0
     
     //Define parameters essential to payment calc.
     var previousTimeSeconds: Double = 0.0
@@ -273,7 +273,8 @@ class TripInfo {
                 } else {
                     distanceFactor = 1.0 / (distanceFromAdvertisers[index][newIndex] - advertisersArray[index].criticalRadius - 1.0)
                 }
-                let incrimentalPayment = hourlyImpressionsFactor * incrimentalPaymentFactor * distanceFactor
+                currentRate = hourlyImpressionsFactor * incrimentalPaymentFactor * distanceFactor
+                let incrimentalPayment = currentRate
                 paymentFromAdvertisers[index] += incrimentalPayment
             }
             totalTripPayment += paymentFromAdvertisers[index]

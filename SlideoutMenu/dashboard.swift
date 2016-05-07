@@ -21,9 +21,11 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var displacementLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var velocityLabel: UILabel!
+    @IBOutlet weak var paymentLabel: UILabel!
+    
+    
     
     var startState: Bool = false
     var previousStartState: Bool = false
@@ -39,7 +41,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         }
         
     }
-    @IBOutlet var paymentLabel: UILabel!
     
     let locationManager = CLLocationManager()
     
@@ -81,7 +82,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     let startbucks: Advertiser = Advertiser()
     let pizzaPizza: Advertiser = Advertiser()
     
-    let zoom: Double = 0.015
+    let zoom: Double = 0.024
     
     var currentIndex: Int = 0
     var otherIndex: Int = 0
@@ -246,11 +247,11 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
                     mapView.addOverlay(polyLine)
                 }
             self.distanceLabel.text = currentTrip.currentDrivingMode
-            self.displacementLabel.text = "Displacement: \(roundDouble(currentTrip.incrimentalDisplacement, decimalPlaces: 2))m"
             self.velocityLabel.text = "Velocity: \(roundDouble(currentTrip.velocity, decimalPlaces: 2))km/h"
+            self.paymentLabel.text = "Rate: \(roundDouble(currentTrip.currentRate, decimalPlaces: 2))\t total: \(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
         } else {
             self.distanceLabel.text = "Distance: 0m"
-            self.displacementLabel.text = "Displacement: 0m"
+            //self.displacementLabel.text = "Displacement: 0m"
             self.velocityLabel.text = "Velocity: \(roundDouble(velocity, decimalPlaces: 2))km/h"
         }
         
@@ -265,11 +266,12 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     //render circle and polyline overlays
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        print("sup?")
         if overlay is MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: overlay)
             circleRenderer.fillColor = UIColor(hex: 0x4AD5C6).colorWithAlphaComponent(0.1)
-            circleRenderer.strokeColor = UIColor.clearColor()
-            circleRenderer.lineWidth = 1
+            circleRenderer.strokeColor = UIColor.whiteColor()
+            circleRenderer.lineWidth = 2
             return circleRenderer
         } else {
             let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
