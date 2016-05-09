@@ -38,7 +38,7 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
             return circleRenderer
         } else {
             let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
-            polyLineRenderer.strokeColor = UIColor(hex: 0x4AD5C6)
+            polyLineRenderer.strokeColor = UIColor(hex: 0x8392D4)
             polyLineRenderer.lineWidth = 5
             polyLineRenderer.lineCap = CGLineCap.Round
             return polyLineRenderer

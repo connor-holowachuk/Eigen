@@ -207,8 +207,9 @@ class TripInfo {
     
     func calculateHourlyFactor() -> Double {
         self.calculateCurrentTime()
+        print(currentDateTime)
         var hourlyFactor: Double!
-        if (currentDateTime >= 0 && currentDateTime > 420) {
+        if (currentDateTime >= 0 && currentDateTime < 420) {
             hourlyFactor = (5.102040816e-6) * Double(currentDateTime * currentDateTime) + 0.1
         } else if (currentDateTime >= 780 && currentDateTime < 960) {
             hourlyFactor = (61.72839506e-6) * pow(Double(currentDateTime) - 630.0, 2.0) + 0.5
@@ -266,14 +267,17 @@ class TripInfo {
         let incrimentalPaymentFactor : Double = (1 - royaltyFromDriver) * hourlyImpressionsFactor * royaltyFromAdvertiser * averageItemCost
         var distanceFactor: Double = 1.0
         
+        totalTripPayment = 0.0
+        
         for index in 0...(advertiserLocations.count - 1) {
+            
             for newIndex in 0...(advertiserLocations[index].count - 1) {
                 if distanceFromAdvertisers[index][newIndex] <= advertisersArray[index].criticalRadius {
                     distanceFactor = 1.0
                 } else {
                     distanceFactor = 1.0 / (distanceFromAdvertisers[index][newIndex] - advertisersArray[index].criticalRadius - 1.0)
                 }
-                currentRate = hourlyImpressionsFactor * incrimentalPaymentFactor * distanceFactor
+                currentRate = hourlyImpressionsFactor * incrimentalPaymentFactor * distanceFactor * (currentTimeSeconds - previousTimeSeconds) / 3_600
                 let incrimentalPayment = currentRate
                 paymentFromAdvertisers[index] += incrimentalPayment
             }

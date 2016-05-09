@@ -10,11 +10,16 @@ import Foundation
 import UIKit
 import MapKit
 
+protocol PassDataDelegate {
+    func userToPassData(passingIndex: Int)
+}
+
 class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    
+    var dataToPassDelegate: PassDataDelegate? = nil
+    var indexToPass: Int = 0
     
     override func viewDidLoad() {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -41,8 +46,8 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
         cell.SubheadingLabel.text = "$\(roundDouble(totalPayment, decimalPlaces: 2)) CAD"
         let maxIndex = currentUser.tripLog[cellIndex].tripPath.count
-        let halfIndex = Int(currentUser.tripLog[cellIndex].tripPath.count / 2)
-        let center = currentUser.tripLog[cellIndex].tripPath[halfIndex]
+        //let halfIndex = Int(currentUser.tripLog[cellIndex].tripPath.count / 2)
+        //let center = currentUser.tripLog[cellIndex].tripPath[halfIndex]
         
         var latitudeArray: [Double] = []
         var longitudeArray: [Double] = []
@@ -100,6 +105,10 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        indexToPass = indexPath.row
+    }
+    
     
     
     func timeStampToString(timeStamp: TimeStamp) -> String {
@@ -125,6 +134,14 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     }
     */
+    
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (dataToPassDelegate != nil) {
+            dataToPassDelegate!.userToPassData(indexToPass)
+        }
+    }
     
     
     

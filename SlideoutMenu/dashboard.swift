@@ -82,7 +82,8 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     let startbucks: Advertiser = Advertiser()
     let pizzaPizza: Advertiser = Advertiser()
     
-    let zoom: Double = 0.024
+    var zoom: Double = 0.024
+    let zoomArray: [Double] = [0.008, 0.012, 0.016, 0.02, 0.024]
     
     var currentIndex: Int = 0
     var otherIndex: Int = 0
@@ -130,6 +131,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         for index in 0...(businessCoordinatesArray.count - 1) {
             self.mapView.addOverlay(MKCircle(centerCoordinate: businessCoordinatesArray[index], radius: 1_200))
         }
+        
         
         let advertiserArray: [Advertiser] = [greenBean, loneStar, tequilaBobs, startbucks, pizzaPizza]
         let advertiserLocationsArray: [[CLLocationCoordinate2D]] = [greenBeanLocations, loneStarLocations, tequilaBobsLocations, starbucksLocations, pizzaPizzaLocations]
@@ -208,6 +210,13 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         let location = locations.last
         let currentTime = CACurrentMediaTime()
         
+        for index in 0...currentTrip.drivingModes.count - 1 {
+            if currentTrip.currentDrivingMode != nil && currentTrip.drivingModes[index] == currentTrip.currentDrivingMode {
+                zoom = zoomArray[index]
+                print(zoom)
+            }
+        }
+        
         center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
         self.mapView.setRegion(region, animated: true)
@@ -248,7 +257,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
                 }
             self.distanceLabel.text = currentTrip.currentDrivingMode
             self.velocityLabel.text = "Velocity: \(roundDouble(currentTrip.velocity, decimalPlaces: 2))km/h"
-            self.paymentLabel.text = "Rate: \(roundDouble(currentTrip.currentRate, decimalPlaces: 2))\t total: \(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
+            self.paymentLabel.text = "Rate: \(roundDouble(currentTrip.currentRate, decimalPlaces: 10))\t total: \(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
         } else {
             self.distanceLabel.text = "Distance: 0m"
             //self.displacementLabel.text = "Displacement: 0m"
@@ -275,7 +284,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             return circleRenderer
         } else {
             let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
-            polyLineRenderer.strokeColor = UIColor(hex: 0x4AD5C6)
+            polyLineRenderer.strokeColor = UIColor(hex: 0x8392D4)
             polyLineRenderer.lineWidth = 5
             polyLineRenderer.lineCap = CGLineCap.Round
             return polyLineRenderer

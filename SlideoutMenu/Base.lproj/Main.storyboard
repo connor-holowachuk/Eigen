@@ -454,6 +454,7 @@
                                             <outlet property="HeadingLabel" destination="nOc-97-5MY" id="Pnv-AC-UXk"/>
                                             <outlet property="SubheadingLabel" destination="DAx-RP-mSK" id="F1H-0e-Kc0"/>
                                             <outlet property="mapView" destination="YfB-GY-s5V" id="JDC-vc-4ZA"/>
+                                            <segue destination="2f2-ju-o2J" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="sGc-X9-kaj"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -472,6 +473,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uId-zp-FyZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1634" y="-831"/>
+        </scene>
+        <!--History Page View Controller-->
+        <scene sceneID="Lzj-IB-72K">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="2f2-ju-o2J" customClass="historyPageViewController" customModule="Eigen" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="50X-RG-zKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2325" y="-831"/>
+        </scene>
+        <!--History Data Summary-->
+        <scene sceneID="Ykv-eq-t0k">
+            <objects>
+                <viewController storyboardIdentifier="historyDataSummary" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tEb-Y8-t1d" customClass="HistoryDataSummary" customModule="Eigen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hhw-rt-fbK"/>
+                        <viewControllerLayoutGuide type="bottom" id="1uI-hB-CRd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0f3-Yr-dJh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Orv-6U-ar8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3026" y="-1111"/>
+        </scene>
+        <!--History Trip Info-->
+        <scene sceneID="Yfq-ww-tx8">
+            <objects>
+                <viewController storyboardIdentifier="historyTripInfo" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7eD-zc-bIH" customClass="HistoryTripInfo" customModule="Eigen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Usn-OH-djz"/>
+                        <viewControllerLayoutGuide type="bottom" id="JfR-Ph-CAf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ORN-en-QyG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGy-Of-zDC">
+                                <rect key="frame" x="20" y="58" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LGy-Of-zDC" firstAttribute="top" secondItem="Usn-OH-djz" secondAttribute="bottom" constant="38" id="K7G-gy-TgY"/>
+                            <constraint firstItem="LGy-Of-zDC" firstAttribute="leading" secondItem="ORN-en-QyG" secondAttribute="leadingMargin" id="aPz-oa-M5E"/>
+                            <constraint firstItem="LGy-Of-zDC" firstAttribute="trailing" secondItem="ORN-en-QyG" secondAttribute="trailingMargin" id="n6q-Rq-e0v"/>
+                            <constraint firstItem="JfR-Ph-CAf" firstAttribute="top" secondItem="LGy-Of-zDC" secondAttribute="bottom" constant="521" id="xzp-od-5dc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="headerLabel" destination="LGy-Of-zDC" id="vRa-ve-RQb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zca-2M-I1D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3026" y="-428"/>
         </scene>
         <!--Profile-->
         <scene sceneID="5QT-p5-bB9">
