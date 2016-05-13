@@ -22,6 +22,9 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
     var indexToPass: Int = 0
     
     override func viewDidLoad() {
+        
+        print("---- in history view controller ----")
+        
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
@@ -96,7 +99,6 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate {
             
             cell.mapView.addOverlay(polyLine)
             cell.mapView.rendererForOverlay(polyLine)
-            print(cell.mapView.rendererForOverlay(polyLine))
         }
         
         //let polyLine = MKPolyline(coordinates: &(currentUser.tripLog[cellIndex].tripPath), count: (currentUser.tripLog[cellIndex].tripPath).count)

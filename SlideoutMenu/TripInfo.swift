@@ -172,7 +172,6 @@ class TripInfo {
             advertiserLocations.append(advertisersArray[index].locations)
             paymentFromAdvertisers.append(0.0)
         }
-        print(advertiserLocations)
         previousLocation = startingPosition
     }
     
@@ -207,7 +206,6 @@ class TripInfo {
     
     func calculateHourlyFactor() -> Double {
         self.calculateCurrentTime()
-        print(currentDateTime)
         var hourlyFactor: Double!
         if (currentDateTime >= 0 && currentDateTime < 420) {
             hourlyFactor = (5.102040816e-6) * Double(currentDateTime * currentDateTime) + 0.1
@@ -235,7 +233,7 @@ class TripInfo {
         //determine driving mode
         let timeDifference = currentTimeSeconds - previousTimeSeconds
         
-        var thisIndex: Int!
+        var thisIndex: Int = 0
         var verifiedIndex: Int = 0
         
         for index in 0...(drivingModes.count - 1) {
@@ -245,7 +243,6 @@ class TripInfo {
         }
         
         if previousDrivingMode == nil || tripDisplacement <= 150.0 {
-            print("here")
             previousDrivingMode = drivingModes[thisIndex]
             currentDrivingMode = drivingModes[thisIndex]
             //timeSpentInMode = 7.0
@@ -296,6 +293,8 @@ class TripInfo {
     
     func startNewTrip() {
         startTimeStamp = makeTimeStamp()
+        previousTimeSeconds = CACurrentMediaTime()
+        currentTimeSeconds = CACurrentMediaTime()
     }
     
     func save() {

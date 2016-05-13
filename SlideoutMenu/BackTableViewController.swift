@@ -14,11 +14,13 @@ class BackTableViewController: UITableViewController {
     var ImagesArray = [String]()
     
     override func viewDidLoad() {
+        
+        print("---- back table view controller loaded ----")
+        
         super.viewDidLoad()
         TableArray = ["c holowachuk", "dashboard", "profile", "history", "settings", "help", "signOut"]
         ImagesArray = ["dashboardIcon", "profileIcon", "historyIcon", "settingsIcon", "helpIcon", "signOutIcon"]
         //self.tableView.registerClass(ProfileCell.self, forCellReuseIdentifier: TableArray[0])
-        print("hello")
         
     }
     

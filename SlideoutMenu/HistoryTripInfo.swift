@@ -16,6 +16,9 @@ class HistoryTripInfo: UIViewController, PassDataDelegate {
     var passedIndex: Int = 0
     
     override func viewDidLoad() {
+        
+        print("---- in history trip info view controller ----")
+        
         super.viewDidLoad()
         
         self.headerLabel.text = String(currentUser.tripLog[passedIndex].startTimeStamp.hour)

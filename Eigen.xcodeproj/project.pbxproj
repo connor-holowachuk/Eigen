@@ -30,6 +30,7 @@
 		B3DA10991CD28C3A009C7803 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3DA10981CD28C3A009C7803 /* SWRevealViewController.m */; };
 		B3DA109C1CD28F85009C7803 /* BackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DA109B1CD28F85009C7803 /* BackTableViewController.swift */; };
 		B3DE04A11CDD13E100D8A410 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DE04A01CDD13E100D8A410 /* HistoryCell.swift */; };
+		B3EDF0411CE63E2900383C2C /* RadialGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EDF0401CE63E2900383C2C /* RadialGraph.swift */; };
 		B3FF544C1CD8C32F0091D50D /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544B1CD8C32F0091D50D /* Driver.swift */; };
 		B3FF544E1CD8C7C30091D50D /* TripInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544D1CD8C7C30091D50D /* TripInfo.swift */; };
 		B3FF54501CD8CAB50091D50D /* GlobalFuncations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544F1CD8CAB50091D50D /* GlobalFuncations.swift */; };
@@ -84,6 +85,7 @@
 		B3DA10981CD28C3A009C7803 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = ../SWRevealViewController.m; sourceTree = "<group>"; };
 		B3DA109B1CD28F85009C7803 /* BackTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackTableViewController.swift; sourceTree = "<group>"; };
 		B3DE04A01CDD13E100D8A410 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		B3EDF0401CE63E2900383C2C /* RadialGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialGraph.swift; sourceTree = "<group>"; };
 		B3FF544B1CD8C32F0091D50D /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		B3FF544D1CD8C7C30091D50D /* TripInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripInfo.swift; sourceTree = "<group>"; };
 		B3FF544F1CD8CAB50091D50D /* GlobalFuncations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFuncations.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				B39E6CA01CD3F91B00DFC8B2 /* dashboard.swift */,
 				B39E6C9E1CD3F89E00DFC8B2 /* profile.swift */,
 				B39E6CA21CD3F94800DFC8B2 /* history.swift */,
+				B3EDF0401CE63E2900383C2C /* RadialGraph.swift */,
 				B329201C1CE0C55A00258124 /* historyPageViewController.swift */,
 				B329201E1CE0D02200258124 /* HistoryDataSummary.swift */,
 				B32920201CE0D08400258124 /* HistoryTripInfo.swift */,
@@ -357,6 +360,7 @@
 				B35847561CD52A90004B99F0 /* MenuCell.swift in Sources */,
 				B39E6CA71CD3F9AA00DFC8B2 /* help.swift in Sources */,
 				B3DE04A11CDD13E100D8A410 /* HistoryCell.swift in Sources */,
+				B3EDF0411CE63E2900383C2C /* RadialGraph.swift in Sources */,
 				B35847161CD4CD57004B99F0 /* ProfileCell.swift in Sources */,
 				B32920211CE0D08400258124 /* HistoryTripInfo.swift in Sources */,
 				B3FF544E1CD8C7C30091D50D /* TripInfo.swift in Sources */,

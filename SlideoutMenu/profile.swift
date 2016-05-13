@@ -12,8 +12,7 @@ class profile : UIViewController {
     @IBOutlet var profilePicImageView: UIImageView!
     override func viewDidLoad() {
         
-        currentViewController = 1
-        print(currentViewController)
+        print("---- in profile view controller ----")
         
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }

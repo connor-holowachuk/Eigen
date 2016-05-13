@@ -15,6 +15,9 @@ class HistoryDataSummary: UIViewController, PassDataDelegate {
     var passedIndex: Int!
     
     override func viewDidLoad() {
+        
+        print("---- in history data summary view controller ----")
+        
         super.viewDidLoad()
     }
     

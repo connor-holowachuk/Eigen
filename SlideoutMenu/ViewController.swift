@@ -12,17 +12,23 @@ var currentViewController: Int!
 
 
 class ViewController: UIViewController {
-
+/*
     @IBOutlet var open: UIBarButtonItem!
     @IBOutlet var Label: UILabel!
-    
+*/
     var varView = Int()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        print("---- opening view controller loaded ----")
+        
+        super.viewDidLoad()
+/*
         open.target = self.revealViewController()
-        open.action = Selector("revealToggle:")
+        open.action = #selector(SWRevealViewController.revealToggle(_:))
+*/        
+        //open.action = Selector("revealToggle:")
+
         
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         

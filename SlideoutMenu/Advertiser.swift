@@ -11,7 +11,7 @@ import MapKit
 
 class Advertiser {
     var name: String!
-    var descirption: String!
+    var descirption: String?
     var locations: [CLLocationCoordinate2D]!
     var criticalRadius: Double = 1_200
     var phoneNumer: Int?

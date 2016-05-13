@@ -29,7 +29,6 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        print("sup?")
         if overlay is MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: overlay)
             circleRenderer.fillColor = UIColor(hex: 0x4AD5C6).colorWithAlphaComponent(0.1)

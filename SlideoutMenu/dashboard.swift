@@ -17,6 +17,8 @@ import UIKit
 import CoreLocation
 import MapKit
 
+let inSimulation = true
+
 class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
@@ -39,7 +41,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             self.startStopButton.setTitle("stop", forState: .Normal)
             startState = true
         }
-        
     }
     
     let locationManager = CLLocationManager()
@@ -51,9 +52,23 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     var currentTrip: TripInfo!
     var tripLogArray: [CLLocation] = []
     var currentTripLog: [CLLocationCoordinate2D] = []
-    let businessCoordinatesArray: [CLLocationCoordinate2D] = [CLLocationCoordinate2DMake(37.35187, -122.06703), CLLocationCoordinate2DMake(37.33352, -122.04171), CLLocationCoordinate2DMake(37.37084, -122.11132), CLLocationCoordinate2DMake(37.35822, -122.13132)]
+    
+    
+    let businessCoordinatesArray: [[CLLocationCoordinate2D]] = [[CLLocationCoordinate2DMake(37.35187, -122.06703)], [CLLocationCoordinate2DMake(37.33352, -122.04171)], [CLLocationCoordinate2DMake(37.37084, -122.11132)], [CLLocationCoordinate2DMake(37.35822, -122.13132)]]
     let businessNameArray: [String] = ["Joe's Diner", "Corner Cafe", "Steakhouse", "Flower Boutique"]
     let appleLocation = CLLocationCoordinate2D(latitude: 37.33159558, longitude: -122.03045365)
+    
+    let joesDinerAnnotation: MKPointAnnotation = MKPointAnnotation()
+    let cornerCafeAnnotation: MKPointAnnotation = MKPointAnnotation()
+    let SteakhouseAnnotation: MKPointAnnotation = MKPointAnnotation()
+    let flowerBoutiqueAnnotation: MKPointAnnotation = MKPointAnnotation()
+    let appleAnnotation: MKPointAnnotation = MKPointAnnotation()
+    
+    let joesDiner: Advertiser = Advertiser()
+    let cornerCafe: Advertiser = Advertiser()
+    let Steakhouse: Advertiser = Advertiser()
+    let flowerBoutique: Advertiser = Advertiser()
+
     
     let advertiserNameArray: [String] = ["Green Bean Cafe", "Lone Star Steakhouse", "Tequila Bobs", "Starbucks", "Pizza Pizza"]
     let advertiserDescriptionArray: [String] = ["Local hipster cafe", "Huuuge steaks. Theyre great.", "The name says it all", "White people cafe", "Shit on bread"]
@@ -82,6 +97,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     let startbucks: Advertiser = Advertiser()
     let pizzaPizza: Advertiser = Advertiser()
     
+    
     var zoom: Double = 0.024
     let zoomArray: [Double] = [0.008, 0.012, 0.016, 0.02, 0.024]
     
@@ -96,8 +112,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     override func viewDidLoad() {
         
-        currentViewController = 0
-        print(currentViewController)
+        print("---- in dashboard view controller ----")
         
         super.viewDidLoad()
         
@@ -127,36 +142,69 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.mapView.setRegion(region, animated: true)
         
     //Create advertiser instances and annotations on map
-        
+        /*
         for index in 0...(businessCoordinatesArray.count - 1) {
-            self.mapView.addOverlay(MKCircle(centerCoordinate: businessCoordinatesArray[index], radius: 1_200))
-        }
+            self.mapView.addOverlay(MKCircle(centerCoordinate: businessCoordinatesArray[index][0], radius: 1_200))
+        }*/
         
         
-        let advertiserArray: [Advertiser] = [greenBean, loneStar, tequilaBobs, startbucks, pizzaPizza]
-        let advertiserLocationsArray: [[CLLocationCoordinate2D]] = [greenBeanLocations, loneStarLocations, tequilaBobsLocations, starbucksLocations, pizzaPizzaLocations]
-        var annotationArray: [MKPointAnnotation] = [] //[greenBeanAnnotation, loneStarAnnotation, tequilaBobsAnnotation, starbucksAnnotation, pizzaPizzaAnnotation]
-
-        for index in 0...(advertiserNameArray.count - 1) {
-            advertiserArray[index].name = advertiserNameArray[index]
-            advertiserArray[index].descirption = advertiserDescriptionArray[index]
-            advertiserArray[index].logo = UIImage(named: advertiserImageNameArray[index])
-            advertiserArray[index].locations = advertiserLocationsArray[index]
-            for newIndex in 0...(advertiserArray[index].locations.count - 1) {
-                annotationArray.append(MKPointAnnotation())
-                
-                annotationArray[otherIndex].coordinate = advertiserArray[index].locations[newIndex]
-                annotationArray[otherIndex].title = advertiserArray[index].name
-                annotationArray[otherIndex].subtitle = advertiserArray[index].descirption
-                currentIndex = index
-
-                self.mapView.addAnnotation(annotationArray[otherIndex])
-                self.mapView.addOverlay(MKCircle(centerCoordinate: advertiserArray[index].locations[newIndex], radius: 1_200))
-
-                print("Other Index: \(otherIndex)")
-                otherIndex += 1
+        
+        let advertiserArray: [Advertiser]!
+        if inSimulation == true {
+            advertiserArray = [joesDiner, cornerCafe, Steakhouse, flowerBoutique]
+            
+            let advertiserLocationsArray: [[CLLocationCoordinate2D]] = businessCoordinatesArray
+            var annotationArray: [MKPointAnnotation] = []
+            
+            for index in 0...(businessNameArray.count - 1) {
+                advertiserArray[index].name = businessNameArray[index]
+                //advertiserArray[index].descirption = advertiserDescriptionArray[index]
+                let advLogoImage = UIImage(named: advertiserImageNameArray[index])
+                advertiserArray[index].logo = UIImage.scaleImageToSize(advLogoImage!, scale: 0.4)
+                advertiserArray[index].locations = advertiserLocationsArray[index]
+                for newIndex in 0...(advertiserArray[index].locations.count - 1) {
+                    annotationArray.append(MKPointAnnotation())
+                    
+                    annotationArray[otherIndex].coordinate = advertiserArray[index].locations[newIndex]
+                    annotationArray[otherIndex].title = advertiserArray[index].name
+                    annotationArray[otherIndex].subtitle = "cool beans, brah"
+                    currentIndex = index
+                    
+                    self.mapView.addAnnotation(annotationArray[otherIndex])
+                    self.mapView.addOverlay(MKCircle(centerCoordinate: advertiserArray[index].locations[newIndex], radius: 1_200))
+                    
+                    otherIndex += 1
+                }
+            }
+        } else {
+            advertiserArray = [greenBean, loneStar, tequilaBobs, startbucks, pizzaPizza]
+            
+            let advertiserLocationsArray: [[CLLocationCoordinate2D]] = [greenBeanLocations, loneStarLocations, tequilaBobsLocations, starbucksLocations, pizzaPizzaLocations]
+            var annotationArray: [MKPointAnnotation] = [] //[greenBeanAnnotation, loneStarAnnotation, tequilaBobsAnnotation, starbucksAnnotation, pizzaPizzaAnnotation]
+            
+            
+            for index in 0...(advertiserNameArray.count - 1) {
+                advertiserArray[index].name = advertiserNameArray[index]
+                advertiserArray[index].descirption = advertiserDescriptionArray[index]
+                let advLogoImage = UIImage(named: advertiserImageNameArray[index])
+                advertiserArray[index].logo = ResizeImage(advLogoImage!, targetSize: CGSize(width: 0.1, height: 0.1))
+                advertiserArray[index].locations = advertiserLocationsArray[index]
+                for newIndex in 0...(advertiserArray[index].locations.count - 1) {
+                    annotationArray.append(MKPointAnnotation())
+                    
+                    annotationArray[otherIndex].coordinate = advertiserArray[index].locations[newIndex]
+                    annotationArray[otherIndex].title = advertiserArray[index].name
+                    annotationArray[otherIndex].subtitle = advertiserArray[index].descirption
+                    currentIndex = index
+                    
+                    self.mapView.addAnnotation(annotationArray[otherIndex])
+                    self.mapView.addOverlay(MKCircle(centerCoordinate: advertiserArray[index].locations[newIndex], radius: 1_200))
+                    
+                    otherIndex += 1
+                }
             }
         }
+        currentUser.advertisers = advertiserArray
         
         currentTrip = TripInfo(advertisers: advertiserArray, startingPosition: previousLocation)
         
@@ -173,17 +221,21 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         }
         
         let resuseID = (annotation.title!)!
-        var imageName: String = "business Pin"
-        for index in 0...(self.advertiserNameArray.count - 1) {
-            if resuseID == advertiserNameArray[index] {
-                imageName = advertiserImageNameArray[index]
+        var imageName: String = "businessPin"
+        
+        if inSimulation == false {
+            for index in 0...(self.advertiserNameArray.count - 1) {
+                if resuseID == advertiserNameArray[index] {
+                    imageName = advertiserImageNameArray[index]
+                }
             }
         }
         
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(resuseID)
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: resuseID)
-            annotationView?.image = UIImage(named: imageName)
+            let tempUIImageHolder = UIImage(named: imageName)
+            annotationView?.image = UIImage.scaleImageToSize(tempUIImageHolder!, scale: 0.7071)
             annotationView?.canShowCallout = true
         } else {
             annotationView?.annotation = annotation
@@ -213,7 +265,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         for index in 0...currentTrip.drivingModes.count - 1 {
             if currentTrip.currentDrivingMode != nil && currentTrip.drivingModes[index] == currentTrip.currentDrivingMode {
                 zoom = zoomArray[index]
-                print(zoom)
             }
         }
         
@@ -223,8 +274,15 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         //var businessDistance: Double!
         
-        let advertiserArray: [Advertiser] = [greenBean, loneStar, tequilaBobs, startbucks, pizzaPizza]
-        let advertiserLocationsArray: [[CLLocationCoordinate2D]] = [greenBeanLocations, loneStarLocations, tequilaBobsLocations, starbucksLocations, pizzaPizzaLocations]
+        let advertiserArray: [Advertiser]!
+        let advertiserLocationsArray: [[CLLocationCoordinate2D]]!
+        if inSimulation == false {
+            advertiserArray = [greenBean, loneStar, tequilaBobs, startbucks, pizzaPizza]
+            advertiserLocationsArray = [greenBeanLocations, loneStarLocations, tequilaBobsLocations, starbucksLocations, pizzaPizzaLocations]
+        } else {
+            advertiserArray = [joesDiner, cornerCafe, Steakhouse, flowerBoutique]
+            advertiserLocationsArray = businessCoordinatesArray
+        }
         
         for index in 0...(advertiserArray.count - 1) {
             if advertiserArray[index].locations == nil {
@@ -275,7 +333,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     //render circle and polyline overlays
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        print("sup?")
         if overlay is MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: overlay)
             circleRenderer.fillColor = UIColor(hex: 0x4AD5C6).colorWithAlphaComponent(0.1)

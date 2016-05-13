@@ -11,7 +11,7 @@ import Foundation
 class help : UIViewController {
     override func viewDidLoad() {
         
-        currentViewController = 4
+        print("---- in help view controller ----")
         
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }

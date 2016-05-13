@@ -20,6 +20,9 @@ class historyPageViewController: UIPageViewController {
     }()
     
     override func viewDidLoad() {
+        
+        print("---- history page view controller loaded ----")
+        
         super.viewDidLoad()
         
         dataSource = self

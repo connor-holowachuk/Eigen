@@ -28,6 +28,9 @@ class settings : UIViewController {
     }
 
     override func viewDidLoad() {
+        
+        print("---- in settings view controller ----")
+        
         /*
         if currentUser.preferedMapType == MKMapType.Standard {
             segmentedControl.setEnabled(true, forSegmentAtIndex: 0)
