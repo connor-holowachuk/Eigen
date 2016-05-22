@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 import MapKit
 
+
 protocol PassDataDelegate {
     func userToPassData(passingIndex: Int)
 }
 
+
 class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UIViewControllerTransitioningDelegate {
-    
-    //@IBOutlet weak var tableView: UITableView!
     
     var tableView = UITableView()
     var headerImage = UIImageView()
@@ -28,6 +28,7 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     
     var dataToPassDelegate: PassDataDelegate? = nil
     var indexToPass: Int = 0
+    
     
     override func viewDidLoad() {
         
@@ -78,14 +79,15 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     }
     
     
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentUser.tripLog.count
     }
     
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return self.view.frame.height / 6.0
     }
+  
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIndex = (currentUser.tripLog.count - 1) - indexPath.row
@@ -188,6 +190,7 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         return cell
     }
     
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         indexToPass = indexPath.row
         
@@ -195,7 +198,6 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         infoVC.transitioningDelegate = self
         presentViewController(infoVC, animated: true, completion: nil)
     }
-    
     
     
     func timeStampToString(timeStamp: TimeStamp) -> String {
@@ -217,13 +219,7 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         return timeStampString
     }
     
-    /*
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
-    */
-    
-    
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (dataToPassDelegate != nil) {
             dataToPassDelegate!.userToPassData(indexToPass)
@@ -231,36 +227,13 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     }
     
     
-    
-    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
     
     
-    
-    
-    
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+    
 }
-/*
-extension ViewController: UIViewControllerTransitioningDelegate {
-    
-    //allows to choose which transition to return and use
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        transition.originFrame =
-            selectedImage!.superview!.convertRect(selectedImage!.frame, toView: nil)
-        
-        transition.presenting = true
-        
-        return transition
-    }
-    
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        transition.presenting = false
-        return transition
-    }
-}*/

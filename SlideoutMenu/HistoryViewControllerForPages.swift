@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class HistoryViewControllerForPages: UIViewController, UIPageViewControllerDataSource, UIScrollViewDelegate {
 
     var pageViewController = UIPageViewController()
@@ -23,10 +24,12 @@ class HistoryViewControllerForPages: UIViewController, UIPageViewControllerDataS
                 UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TripDataViewController")]
     }()
     
+    
     func backButtonPressed(sender: UIButton) {
         print("here")
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,14 +77,17 @@ class HistoryViewControllerForPages: UIViewController, UIPageViewControllerDataS
         
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         scrollView.delegate = self
         print("here")
     }
+    
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
@@ -100,6 +106,7 @@ class HistoryViewControllerForPages: UIViewController, UIPageViewControllerDataS
         
         return orderedViewControllers[previousIndex]
     }
+    
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.indexOf(viewController) else {
@@ -120,26 +127,14 @@ class HistoryViewControllerForPages: UIViewController, UIPageViewControllerDataS
         return orderedViewControllers[nextIndex]
     }
     
+    
     func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
         return self.orderedViewControllers.count
     }
     
+    
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
     }
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -13,6 +13,7 @@ class BackTableViewController: UITableViewController {
     var TableArray = [String]()
     var ImagesArray = [String]()
     
+    
     override func viewDidLoad() {
         
         print("---- back table view controller loaded ----")
@@ -24,6 +25,7 @@ class BackTableViewController: UITableViewController {
         
     }
     
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableView.backgroundColor = UIColor(hex: 0x262531)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -31,6 +33,7 @@ class BackTableViewController: UITableViewController {
         return TableArray.count
     }
 
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
                 
         if indexPath.row == 0 {
@@ -88,9 +91,11 @@ class BackTableViewController: UITableViewController {
         }
     }
     
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return TableArray.count
     }
+    
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
@@ -102,13 +107,16 @@ class BackTableViewController: UITableViewController {
         }
     }
     
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
+    
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+    
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 6 {
@@ -120,25 +128,5 @@ class BackTableViewController: UITableViewController {
             self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
-    
-
- /*
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row], forIndexPath: indexPath) as UITableViewCell
-        
-        let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.width))
-        selectedView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.4)
-        cell.selectedBackgroundView = selectedView
-        
-        for index in 0...(TableArray.count - 1) {
-            let otherCells = tableView.dequeueReusableCellWithIdentifier(TableArray[index])
-            
-            otherCells!.backgroundColor = UIColor.darkGrayColor()
-            otherCells!.textLabel?.text = TableArray[index]
-            otherCells!.textLabel?.textColor = UIColor.lightTextColor()
-        }
-        
-        
-    }*/
     
 }

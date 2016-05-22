@@ -10,11 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 
+
 class HistoryCell: UITableViewCell, MKMapViewDelegate {
-    
-    //@IBOutlet weak var HeadingLabel: UILabel!
-    //@IBOutlet weak var SubheadingLabel: UILabel!
-    //@IBOutlet weak var mapView: MKMapView!
     
     var HeadingLabel = UILabel()
     var SubheadingLabel = UILabel()
@@ -22,16 +19,19 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
     var mapViewBackShade = UIImageView()
     var mapView = MKMapView()
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+    
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
+    
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKCircle {
@@ -49,4 +49,5 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
         }
         
     }
+
 }

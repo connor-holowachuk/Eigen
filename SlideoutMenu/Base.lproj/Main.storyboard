@@ -93,11 +93,12 @@
                         <outlet property="distanceLabel" destination="AsI-3Y-5xd" id="31B-Rn-qRT"/>
                         <outlet property="paymentLabel" destination="jZz-Fy-QDv" id="UTu-og-Ctz"/>
                         <outlet property="velocityLabel" destination="2tg-Ei-lJg" id="Kqp-i5-6vQ"/>
+                        <segue destination="4Mf-Pg-0mg" kind="show" identifier="toBackTableView" id="VIm-qh-h9F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9s-0I-Sr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1634" y="537"/>
+            <point key="canvasLocation" x="1634" y="532"/>
         </scene>
         <!--Back Table View Controller-->
         <scene sceneID="dca-KI-s7u">
@@ -451,5 +452,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="k9g-bo-jnD"/>
+        <segue reference="VIm-qh-h9F"/>
     </inferredMetricsTieBreakers>
 </document>

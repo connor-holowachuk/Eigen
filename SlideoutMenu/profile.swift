@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 import MapKit
 
+
 class profile : UIViewController {
-    @IBOutlet var profilePicImageView: UIImageView!
     
     var headerImage = UIImageView()
     var headerLabel = UIImageView()
@@ -31,6 +31,7 @@ class profile : UIViewController {
     
     var mapViewBackShade = UIImageView()
     var mapView = MKMapView()
+    
     
     override func viewDidLoad() {
         
@@ -129,11 +130,14 @@ class profile : UIViewController {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
+    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
     
+    
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+    
 }

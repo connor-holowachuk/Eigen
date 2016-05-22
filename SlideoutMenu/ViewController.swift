@@ -8,15 +8,11 @@
 
 import UIKit
 
-var currentViewController: Int!
-
 
 class ViewController: UIViewController {
-/*
-    @IBOutlet var open: UIBarButtonItem!
-    @IBOutlet var Label: UILabel!
-*/
+
     var varView = Int()
+    
     
     override func viewDidLoad() {
         
@@ -34,11 +30,11 @@ class ViewController: UIViewController {
         
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 

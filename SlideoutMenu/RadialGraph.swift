@@ -8,9 +8,11 @@
 
 import UIKit
 
+
 class RadialGraph: UIView, PassDataDelegate {
     
     var passedIndex: Int = 0
+    
     
     func userToPassData(passingIndex: Int) {
         passedIndex = passingIndex
@@ -215,8 +217,10 @@ class RadialGraph: UIView, PassDataDelegate {
 
     }
     
+    
     func calculateMagnitude(x: CGFloat, y: CGFloat) -> CGFloat {
         let mag = sqrt(x * x + y * y)
         return mag
     }
+    
 }

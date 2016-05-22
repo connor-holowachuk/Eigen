@@ -10,13 +10,14 @@ import Foundation
 import UIKit
 import MapKit
 
+
 class settings : UIViewController {
     
-    //@IBOutlet weak
-    
     var segmentedControl = UISegmentedControl()
+    var headerImage = UIImageView()
+    var headerLabel = UIImageView()
+    var slideMenuIcon = UIImageView()
     
-    //@IBAction
     
     func segmentedControlAction(sender: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
@@ -30,10 +31,7 @@ class settings : UIViewController {
         }
         
     }
-    
-    var headerImage = UIImageView()
-    var headerLabel = UIImageView()
-    var slideMenuIcon = UIImageView()
+
 
     override func viewDidLoad() {
         
@@ -78,12 +76,13 @@ class settings : UIViewController {
     }
     
     
-    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
     
+    
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+
 }

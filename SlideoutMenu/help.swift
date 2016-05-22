@@ -8,11 +8,13 @@
 
 import Foundation
 
+
 class help : UIViewController {
     
     var headerImage = UIImageView()
     var headerLabel = UIImageView()
     var slideMenuIcon = UIImageView()
+    
     
     override func viewDidLoad() {
         
@@ -38,11 +40,14 @@ class help : UIViewController {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
     
+    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
     
+    
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
     }
+
 }

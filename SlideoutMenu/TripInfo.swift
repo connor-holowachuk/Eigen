@@ -9,8 +9,8 @@
 import Foundation
 import MapKit
 
-extension NSDate
-{
+
+extension NSDate {
     func year() -> Int
     {
         let calendar = NSCalendar.currentCalendar()
@@ -94,6 +94,7 @@ extension NSDate
     }
 }
 
+
 class TimeStamp {
     var year: Int = 1
     var month: Int = 1
@@ -131,6 +132,7 @@ class TimeStamp {
     }
 }
 
+
 struct TripInfoForMem {
     var startTimeStamp: TimeStamp
     var stopTimeStamp: TimeStamp
@@ -140,6 +142,7 @@ struct TripInfoForMem {
     var tripPath: [CLLocationCoordinate2D]
     var tripDisplacement: Double
 }
+
 
 class TripInfo {
     
@@ -203,10 +206,12 @@ class TripInfo {
         previousLocation = startingPosition
     }
     
+    
     func calculateCurrentTime() {
         let currentDate = NSDate()
         currentDateTime = currentDate.hour() * 60 + currentDate.minute()
     }
+    
     
     func calculateDisplacement() {
         if previousLocation == nil {
@@ -216,10 +221,12 @@ class TripInfo {
         tripDisplacement += incrimentalDisplacement
     }
     
+    
     func calculateVelocity() {
         currentTimeSeconds = CACurrentMediaTime()
         velocity = incrimentalDisplacement / (currentTimeSeconds - previousTimeSeconds) * 3.6
     }
+    
     
     func calculateDistanceFromAdvertiser() {
         for index in 0...(advertiserLocations.count - 1) {
@@ -231,6 +238,7 @@ class TripInfo {
             distanceFromAdvertisers.append(temporaryLocationArray)
         }
     }
+    
     
     func calculateHourlyFactor() -> Double {
         self.calculateCurrentTime()
@@ -248,6 +256,7 @@ class TripInfo {
         }
         return hourlyFactor
     }
+    
     
     func secretSauce(location: CLLocationCoordinate2D) {
         currentLocation = location
@@ -313,11 +322,13 @@ class TripInfo {
         previousTimeSeconds = currentTimeSeconds
     }
     
+    
     func makeTimeStamp() -> TimeStamp {
         let currentDate = NSDate()
         let timeStamp = TimeStamp(Year: currentDate.year(), Month: currentDate.month(), Day: currentDate.day(), Hour: currentDate.hour(), Minute: currentDate.minute())
         return timeStamp
     }
+    
     
     func startNewTrip() {
         startTimeStamp = makeTimeStamp()
@@ -325,10 +336,12 @@ class TripInfo {
         currentTimeSeconds = CACurrentMediaTime()
     }
     
+    
     func save() {
         stopTimeStamp = makeTimeStamp()
         storageCell = TripInfoForMem(startTimeStamp: startTimeStamp, stopTimeStamp: stopTimeStamp, paymentFromAdvertisers: paymentFromAdvertisers, tripPath: tripPath, tripDisplacement: tripDisplacement)
     }
+    
     
     func resetForNewTrip() {
         incrimentalDisplacement = 0.0
