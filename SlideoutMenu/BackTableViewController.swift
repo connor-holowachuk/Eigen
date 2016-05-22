@@ -36,7 +36,7 @@ class BackTableViewController: UITableViewController {
         if indexPath.row == 0 {
             let profileCell = tableView.dequeueReusableCellWithIdentifier("c holowachuk", forIndexPath: indexPath) as! ProfileCell
             profileCell.backgroundColor = UIColor.clearColor()
-            let profilePic = UIImage(named: "profilePic")
+            let profilePic = UIImage(named: "profile_pic_test")
             profileCell.ProfileImage?.image = profilePic
             profileCell.ProfileLabel?.textColor = UIColor.lightTextColor()
             profileCell.ProfileLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 20.0)

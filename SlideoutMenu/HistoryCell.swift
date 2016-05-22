@@ -12,10 +12,15 @@ import MapKit
 
 class HistoryCell: UITableViewCell, MKMapViewDelegate {
     
-    @IBOutlet weak var HeadingLabel: UILabel!
-    @IBOutlet weak var SubheadingLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
+    //@IBOutlet weak var HeadingLabel: UILabel!
+    //@IBOutlet weak var SubheadingLabel: UILabel!
+    //@IBOutlet weak var mapView: MKMapView!
     
+    var HeadingLabel = UILabel()
+    var SubheadingLabel = UILabel()
+    var PaymentLabel = UILabel()
+    var mapViewBackShade = UIImageView()
+    var mapView = MKMapView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +42,7 @@ class HistoryCell: UITableViewCell, MKMapViewDelegate {
             return circleRenderer
         } else {
             let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
-            polyLineRenderer.strokeColor = UIColor(hex: 0x8392D4)
+            polyLineRenderer.strokeColor = UIColor(hex: 0xC669EE)
             polyLineRenderer.lineWidth = 5
             polyLineRenderer.lineCap = CGLineCap.Round
             return polyLineRenderer

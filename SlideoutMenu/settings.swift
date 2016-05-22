@@ -12,9 +12,13 @@ import MapKit
 
 class settings : UIViewController {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    //@IBOutlet weak
     
-    @IBAction func segmentedControlAction(sender: UISegmentedControl) {
+    var segmentedControl = UISegmentedControl()
+    
+    //@IBAction
+    
+    func segmentedControlAction(sender: UISegmentedControl) {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             currentUser.preferedMapType = MKMapType.Standard
@@ -26,12 +30,16 @@ class settings : UIViewController {
         }
         
     }
+    
+    var headerImage = UIImageView()
+    var headerLabel = UIImageView()
+    var slideMenuIcon = UIImageView()
 
     override func viewDidLoad() {
         
         print("---- in settings view controller ----")
         
-        /*
+        
         if currentUser.preferedMapType == MKMapType.Standard {
             segmentedControl.setEnabled(true, forSegmentAtIndex: 0)
             segmentedControl.setEnabled(false, forSegmentAtIndex: 1)
@@ -39,12 +47,37 @@ class settings : UIViewController {
             segmentedControl.setEnabled(true, forSegmentAtIndex: 1)
             segmentedControl.setEnabled(false, forSegmentAtIndex: 0)
         }
-        */
-        segmentedControl.setTitle("Standard", forSegmentAtIndex: 0)
-        segmentedControl.setTitle("Hybrid", forSegmentAtIndex: 1)
+        
+        let segmentedControlWidth: CGFloat = 100.0
+        self.segmentedControl.frame = CGRectMake(self.view.frame.width / 2.0 - segmentedControlWidth / 2.0, self.view.frame.height / 2.0 - 20, segmentedControlWidth, 40)
+        self.segmentedControl.setTitle("Standard", forSegmentAtIndex: 0)
+        self.segmentedControl.setTitle("Hybrid", forSegmentAtIndex: 1)
+        self.view.addSubview(self.segmentedControl)
+        
+        
+        self.headerImage.frame = CGRectMake(0, 0, self.view.frame.width, self.view.bounds.height / 3.0 + (self.view.bounds.height * 0.02273863068))
+        self.headerImage.image = UIImage(named: "white_header_background_with_shade")
+        self.view.addSubview(headerImage)
+        
+        let headerLabelWidth: CGFloat = self.view.frame.width / 3.3334
+        let headerLabelHeight: CGFloat = headerLabelWidth * 100.0 / 230.0
+        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height / 12.0 - 10, headerLabelWidth, headerLabelHeight)
+        self.headerLabel.image = UIImage(named: "settings_title_header")
+        self.view.addSubview(headerLabel)
+        
+        let iconSize: CGFloat = self.view.frame.height * 0.02464467766
+        
+        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0 - 5
+        self.slideMenuIcon.frame = CGRectMake(self.view.frame.width * 0.055556, slideMenuIconY, iconSize, iconSize)
+        self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
+        self.view.addSubview(slideMenuIcon)
+        
+        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
 
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
+    
+    
     
     override func prefersStatusBarHidden() -> Bool {
         return false

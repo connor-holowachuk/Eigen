@@ -11,9 +11,7 @@ import MapKit
 import UIKit
 
 extension UIImage {
-    
-    
-    class func scaleImageToSize(img: UIImage, scale: Double) -> UIImage {
+    class func scaleImageToScale(img: UIImage, scale: Double) -> UIImage {
         let originalSize = img.size
         
         let size: CGSize = CGSize(width: originalSize.width * CGFloat(scale), height: originalSize.height * CGFloat(scale))
@@ -28,6 +26,16 @@ extension UIImage {
         return scaledImage
     }
     
+    class func scaleImageToSize(img: UIImage, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        
+        img.drawInRect(CGRect(origin: CGPointZero, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        return scaledImage
+    }
 }
 
 func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
@@ -56,7 +64,7 @@ func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
     return newImage
 }
 
-let currentUser = Driver(UsrNm: "connor_chuk", PsWrd: "hello", Nm: "Connor Holowachuk", CrCmnpy: "Acura", CrMdl: "TSX", CrYr: 2001, Adrss: "706 Randolph Ave.", Cty: "Windsor")
+let currentUser = Driver(UsrNm: "connor_chuk", PsWrd: "hello", Nm: "connor holowachuk", CrCmnpy: "acura", CrMdl: "TSX", CrYr: 2001, StrtAdrss: "706 randolph ave.", Cty: "windsor", Prvnc: "on", PstlCd: "n9b 2t8", Cntry: "canada")
 
 //Global functions
 
@@ -87,4 +95,10 @@ func roundDouble(number: Double, decimalPlaces: Int) -> Double {
     let intOfNewNumber = Int(newNumber)
     let finalNumber = Double(intOfNewNumber) / shifter
     return finalNumber
+}
+
+func calc3DMagnitude(x: Double, y: Double, z: Double) -> Double {
+    let preSqrtSoS = x * x + y * y + z * z
+    let magnitude = sqrt(preSqrtSoS)
+    return magnitude
 }

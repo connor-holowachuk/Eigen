@@ -31,7 +31,7 @@ class RadialGraph: UIView, PassDataDelegate {
         let outerRadius = self.frame.height / 6.0
         let middleRadius = outerRadius * 2.0 / 3.0
         let innerRadius = middleRadius * 0.5
-        let centerPoint = CGPointMake(self.frame.width * 0.5, self.frame.height - (outerRadius * 1.333333))
+        let centerPoint = CGPointMake(self.frame.width * 0.5, self.frame.height - (outerRadius))
         
         var outerPointsArray: [CGPoint] = []
         
@@ -66,7 +66,7 @@ class RadialGraph: UIView, PassDataDelegate {
             
             let textField = UITextField()
             textField.text = businesses[index].name
-            textField.font = UIFont(name: "HelveticaNeue-Thin", size: 8.0)
+            textField.font = UIFont(name: "AvenirNext-Regular", size: 8.0)
             
             let textFieldWidth = self.frame.width / 6.0
             let textFieldHeight: CGFloat = 20.0

@@ -15,39 +15,62 @@
 
 import UIKit
 import CoreLocation
+import CoreMotion
 import MapKit
 
-let inSimulation = true
+let inSimulation = false
 
 class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    @IBOutlet weak var mapView: MKMapView!
+    //@IBOutlet weak var mapView: MKMapView!
+    var mapView = MKMapView()
     
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var velocityLabel: UILabel!
     @IBOutlet weak var paymentLabel: UILabel!
     
+    //@IBOutlet weak var backgroundImage: UIImageView!
     
+    var headerLabel = UIImageView()
+    var backgroundImage = UIImageView()
+    var slideMenuIcon = UIImageView()
+    var paymentIndicatorLabel = UILabel()
+    var paymentIndicatorSubLabel = UILabel()
+    var beginAndEndButton = UIImageView()
+    var beginAndEndButtonOverlay = UIButton()
     
     var startState: Bool = false
     var previousStartState: Bool = false
-    @IBOutlet weak var startStopButton: UIButton!
-    @IBAction func startStopButtonPressed(sender: UIButton) {
+    
+    func buttonPressed(sender: UIButton) {
         switch startState {
         case true:
-            self.startStopButton.setTitle("start", forState: .Normal)
+            self.mapView.scrollEnabled = true
+            self.mapView.zoomEnabled = true
+            self.mapView.pitchEnabled = true
+            self.mapView.rotateEnabled = true
+    
+            self.beginAndEndButton.image = UIImage(named: "begin_trip_button")
+            UIApplication.sharedApplication().idleTimerDisabled = false
             startState = false
         case false:
-            self.startStopButton.setTitle("stop", forState: .Normal)
+            self.mapView.scrollEnabled = false
+            self.mapView.zoomEnabled = false
+            //self.mapView.pitchEnabled = false
+            self.mapView.rotateEnabled = false
+            self.beginAndEndButton.image = UIImage(named: "end_trip_button")
+            UIApplication.sharedApplication().idleTimerDisabled = true
             startState = true
         }
     }
     
     let locationManager = CLLocationManager()
+    let motionManager = CMMotionManager()
     
     var center: CLLocationCoordinate2D!
     var previousLocation: CLLocationCoordinate2D!
     var integratedDisplacement: Double = 0.0
+    var currentLocation: CLLocation = CLLocation(latitude: 0, longitude: 0)
     
     var currentTrip: TripInfo!
     var tripLogArray: [CLLocation] = []
@@ -106,9 +129,11 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     var previousTime: Double = 0.0
     
+    var currentHeading: Double = 0.0
+    var currentPitch: Double = 0.0
     
-    
-    
+    let filterResolution: Int = 7
+    var previousPitch: [Double] = []
     
     override func viewDidLoad() {
         
@@ -116,23 +141,74 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         super.viewDidLoad()
         
-        self.startStopButton.setTitle("start", forState: .Normal)
+        //self.startStopButton.setTitle("start", forState: .Normal)
         
+        self.mapView.frame = CGRectMake(0, self.view.bounds.height / 3.0, self.view.bounds.width, self.view.bounds.height * 2.0 / 3.0)
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //self.locationManager.activityType = CLActivityType.AutomotiveNavigation
+        //self.locationManager.allowsBackgroundLocationUpdates = true
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        self.locationManager.startUpdatingHeading()
         
         self.mapView.showsUserLocation = true
         self.mapView.showsCompass = true
         self.mapView.mapType = currentUser.preferedMapType
+        self.mapView.showsBuildings = true
+        self.mapView.pitchEnabled = true
+        //self.mapView.camera.pitch = 75.0
+        self.view.addSubview(mapView)
+        
+        self.backgroundImage.frame = CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height / 3.0 + (self.view.bounds.height * 0.02273863068))
+        self.backgroundImage.image = UIImage(named: "white_header_background_with_shade")
+        self.view.addSubview(backgroundImage)
+        
+        let iconSize: CGFloat = self.view.frame.height * 0.02464467766
+        
+        let headerLabelWidth: CGFloat = self.view.frame.width / 3.3334
+        let headerLabelHeight: CGFloat = headerLabelWidth * 95.0 / 180.0
+        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height / 12.0 - 20, headerLabelWidth, headerLabelHeight)
+        self.headerLabel.image = UIImage(named: "eigen_title_header")
+        self.view.addSubview(headerLabel)
+        
+        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0 - 5
+        self.slideMenuIcon.frame = CGRectMake(self.view.frame.width * 0.055556, slideMenuIconY, iconSize, iconSize)
+        self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
+        self.view.addSubview(slideMenuIcon)
+        
+        self.paymentIndicatorLabel.text = "$12.09"
+        self.paymentIndicatorLabel.font = UIFont(name: "AvenirNext-Regular", size: 58.0)
+        self.paymentIndicatorLabel.textAlignment = NSTextAlignment.Center
+        self.paymentIndicatorLabel.textColor = UIColor(hex: 0x515151)
+        self.paymentIndicatorLabel.frame = CGRectMake(0, self.view.frame.height / 6.0 - 5, self.view.frame.width, 60.0)
+        self.view.addSubview(paymentIndicatorLabel)
+        
+        self.paymentIndicatorSubLabel.text = "total earnings this trip"
+        self.paymentIndicatorSubLabel.font = UIFont(name: "AvenirNext-Regular", size: 14.0)
+        self.paymentIndicatorSubLabel.textAlignment = NSTextAlignment.Center
+        self.paymentIndicatorSubLabel.textColor = UIColor(hex: 0xC9D0D6)
+        let paymentIndicatorSubLabelY = self.paymentIndicatorLabel.frame.origin.y + self.paymentIndicatorLabel.frame.size.height
+        self.paymentIndicatorSubLabel.frame = CGRectMake(0, paymentIndicatorSubLabelY, self.view.frame.width, 15.0)
+        self.view.addSubview(paymentIndicatorSubLabel)
+        
+        let beginAndEndButtonWidth = self.view.frame.width / 2.0
+        let beginAndEndButtonHeight = beginAndEndButtonWidth * 105 / 380
+        let beginAndEndButtonX = (self.view.frame.width - beginAndEndButtonWidth) / 2.0
+        let beginAndEndButtonY = self.view.frame.height * 11.0 / 12.0 - beginAndEndButtonHeight
+        self.beginAndEndButton.frame = CGRectMake(beginAndEndButtonX, beginAndEndButtonY, beginAndEndButtonWidth, beginAndEndButtonHeight)
+        self.beginAndEndButton.image = UIImage(named: "begin_trip_button")
+        self.view.addSubview(beginAndEndButton)
+        
+        self.beginAndEndButtonOverlay.frame = self.beginAndEndButton.frame
+        self.view.addSubview(beginAndEndButtonOverlay)
+        self.beginAndEndButtonOverlay.addTarget(self, action: #selector(dashboard.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
     //setup initial view of map
         
         self.locationManager.startUpdatingLocation()
-        while self.locationManager.location?.coordinate == nil {
-        }
+        while self.locationManager.location?.coordinate == nil {}
         
         center = CLLocationCoordinate2D(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!)
         
@@ -142,13 +218,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.mapView.setRegion(region, animated: true)
         
     //Create advertiser instances and annotations on map
-        /*
-        for index in 0...(businessCoordinatesArray.count - 1) {
-            self.mapView.addOverlay(MKCircle(centerCoordinate: businessCoordinatesArray[index][0], radius: 1_200))
-        }*/
-        
-        
-        
+
         let advertiserArray: [Advertiser]!
         if inSimulation == true {
             advertiserArray = [joesDiner, cornerCafe, Steakhouse, flowerBoutique]
@@ -160,7 +230,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
                 advertiserArray[index].name = businessNameArray[index]
                 //advertiserArray[index].descirption = advertiserDescriptionArray[index]
                 let advLogoImage = UIImage(named: advertiserImageNameArray[index])
-                advertiserArray[index].logo = UIImage.scaleImageToSize(advLogoImage!, scale: 0.4)
+                advertiserArray[index].logo = UIImage.scaleImageToScale(advLogoImage!, scale: 0.13)
                 advertiserArray[index].locations = advertiserLocationsArray[index]
                 for newIndex in 0...(advertiserArray[index].locations.count - 1) {
                     annotationArray.append(MKPointAnnotation())
@@ -208,11 +278,48 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         currentTrip = TripInfo(advertisers: advertiserArray, startingPosition: previousLocation)
         
+        self.mapView.camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: 1000, pitch: 60, heading: currentHeading)
+        self.motionManager.accelerometerUpdateInterval = 0.03
+        self.mapView.pitchEnabled = true
+        
+        if self.motionManager.accelerometerAvailable == true {
+            self.motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue()) {_,_ in
+                let zReading = self.motionManager.accelerometerData?.acceleration.z
+                let magnitude = calc3DMagnitude((self.motionManager.accelerometerData?.acceleration.x)!, y: (self.motionManager.accelerometerData?.acceleration.y)!, z: zReading!)
+                let zRelToMag = acos(zReading! / magnitude) * 180 / M_PI
+                
+                self.currentPitch = (180 - abs(zRelToMag)) / 2
+                if self.currentPitch > 45.0 {
+                    self.currentPitch = 45.0
+                } else if self.currentPitch < 5.0 {
+                    self.currentPitch = 5.0
+                }
+
+                
+                //let currentPitchDelta = self.currentPitch - self.previousPitch
+                self.previousPitch.insert(self.currentPitch, atIndex: 0)
+                if self.previousPitch.count > self.filterResolution {
+                    self.previousPitch.removeAtIndex(self.filterResolution)
+                }
+                print(self.previousPitch)
+                var pitchDelta: Double = 0.0
+                for index in 0...self.previousPitch.count - 1{
+                    pitchDelta += self.previousPitch[index]
+                }
+                pitchDelta /= Double(self.filterResolution)
+                
+                self.currentPitch = pitchDelta
+                
+                self.mapView.camera.pitch = CGFloat(self.currentPitch)                
+            }
+            print("here")
+        }
+        
+        
+        
     //Add pan gesture recognizer for menu
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }
-    
-    
     
     //display annotations on map
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -235,7 +342,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: resuseID)
             let tempUIImageHolder = UIImage(named: imageName)
-            annotationView?.image = UIImage.scaleImageToSize(tempUIImageHolder!, scale: 0.7071)
+            annotationView?.image = UIImage.scaleImageToScale(tempUIImageHolder!, scale: 0.13)
             annotationView?.canShowCallout = true
         } else {
             annotationView?.annotation = annotation
@@ -243,10 +350,10 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         return annotationView
     }
     
-    
-    
+
     //centers map on current location; calcaulte distance, displacement and velocity; calculate positions for polyLine overlay
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         if startState != previousStartState && startState == true {
             currentTrip.startNewTrip()
         } else if startState != previousStartState && startState == false {
@@ -269,8 +376,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         }
         
         center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: zoom, longitudeDelta: zoom))
-        self.mapView.setRegion(region, animated: true)
         
         //var businessDistance: Double!
         
@@ -316,6 +421,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             self.distanceLabel.text = currentTrip.currentDrivingMode
             self.velocityLabel.text = "Velocity: \(roundDouble(currentTrip.velocity, decimalPlaces: 2))km/h"
             self.paymentLabel.text = "Rate: \(roundDouble(currentTrip.currentRate, decimalPlaces: 10))\t total: \(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
+            self.paymentIndicatorLabel.text = "$\(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
         } else {
             self.distanceLabel.text = "Distance: 0m"
             //self.displacementLabel.text = "Displacement: 0m"
@@ -325,10 +431,21 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         previousLocation = center
         previousTime = currentTime
         previousStartState = startState
-        //self.locationManager.stopUpdatingLocation()
+    }
+    
+    
+    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        currentHeading = newHeading.trueHeading
+        print(currentHeading)
+        self.mapView.camera.heading = currentHeading
+        //self.mapView.camera.pitch = CGFloat(self.currentPitch)
+        self.mapView.camera.altitude = 3000
         
     }
 
+    override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        print("in motionBegan")
+    }
     
     
     //render circle and polyline overlays
@@ -341,7 +458,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             return circleRenderer
         } else {
             let polyLineRenderer = MKPolylineRenderer(overlay: overlay)
-            polyLineRenderer.strokeColor = UIColor(hex: 0x8392D4)
+            polyLineRenderer.strokeColor = UIColor(hex: 0xC669EE)
             polyLineRenderer.lineWidth = 5
             polyLineRenderer.lineCap = CGLineCap.Round
             return polyLineRenderer
@@ -378,6 +495,10 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     }
     
     
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        <#code#>
+    }
     
     
 }

@@ -20,8 +20,11 @@ class Driver {
     var carModel: String!
     var carYear: Int!
     
-    var adress: String!
+    var streetAdress: String!
     var city: String!
+    var province: String!
+    var postalCode: String!
+    var country: String!
     
     //settings
     var preferedMapType: MKMapType = MKMapType.Standard
@@ -33,14 +36,17 @@ class Driver {
     var tripLog: [TripInfoForMem] = []
     
     
-    init(UsrNm: String, PsWrd: String, Nm: String, CrCmnpy: String, CrMdl: String, CrYr: Int, Adrss: String, Cty: String) {
+    init(UsrNm: String, PsWrd: String, Nm: String, CrCmnpy: String, CrMdl: String, CrYr: Int, StrtAdrss: String, Cty: String, Prvnc: String, PstlCd: String, Cntry: String) {
         userName = UsrNm
         password = PsWrd
         name = Nm
         carCompany = CrCmnpy
         carModel = CrMdl
         carYear = CrYr
-        adress = Adrss
+        streetAdress = StrtAdrss
         city = Cty
+        province = Prvnc
+        postalCode = PstlCd
+        country = Cntry
     }
 }

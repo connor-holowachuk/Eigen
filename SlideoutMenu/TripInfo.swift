@@ -94,13 +94,41 @@ extension NSDate
     }
 }
 
-struct TimeStamp {
-    var year: Int
-    var month: Int
-    var day: Int
+class TimeStamp {
+    var year: Int = 1
+    var month: Int = 1
+    var day: Int = 1
     
-    var hour: Int
-    var minute: Int
+    var hour: Int = 0
+    var minute: Int = 0
+    
+    init(Year: Int, Month: Int, Day: Int, Hour: Int, Minute: Int) {
+        year = Year
+        month = Month
+        day = Day
+        hour = Hour
+        minute = Minute
+    }
+    
+    func calculateDate() -> String {
+        let monthsArray = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        let currentMonth = monthsArray[month]
+        let date = "\(currentMonth) \(day), \(year)"
+        return date
+    }
+    
+    func calculateTime() -> String {
+        let dayNightTime: String!
+        var adjustedHour = hour
+        if hour < 12 {
+            dayNightTime = "AM"
+        } else {
+            adjustedHour = hour - 12
+            dayNightTime = "PM"
+        }
+        let time = "\(adjustedHour):\(minute)\(dayNightTime)"
+        return time
+    }
 }
 
 struct TripInfoForMem {
@@ -206,7 +234,7 @@ class TripInfo {
     
     func calculateHourlyFactor() -> Double {
         self.calculateCurrentTime()
-        var hourlyFactor: Double!
+        var hourlyFactor: Double = 0.0
         if (currentDateTime >= 0 && currentDateTime < 420) {
             hourlyFactor = (5.102040816e-6) * Double(currentDateTime * currentDateTime) + 0.1
         } else if (currentDateTime >= 780 && currentDateTime < 960) {
@@ -287,7 +315,7 @@ class TripInfo {
     
     func makeTimeStamp() -> TimeStamp {
         let currentDate = NSDate()
-        let timeStamp = TimeStamp(year: currentDate.year(), month: currentDate.month(), day: currentDate.day(), hour: currentDate.hour(), minute: currentDate.minute())
+        let timeStamp = TimeStamp(Year: currentDate.year(), Month: currentDate.month(), Day: currentDate.day(), Hour: currentDate.hour(), Minute: currentDate.minute())
         return timeStamp
     }
     
