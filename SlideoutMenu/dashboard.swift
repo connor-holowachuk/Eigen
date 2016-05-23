@@ -27,10 +27,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     var mapView = MKMapView()
     
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var velocityLabel: UILabel!
-    @IBOutlet weak var paymentLabel: UILabel!
-    
     var headerLabel = UIImageView()
     var backgroundImage = UIImageView()
     var slideMenuIcon = UIImageView()
@@ -38,6 +34,10 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     var paymentIndicatorSubLabel = UILabel()
     var beginAndEndButton = UIImageView()
     var beginAndEndButtonOverlay = UIButton()
+    var locateMeIcon = UIImageView()
+    
+    var pinchView = UIView()
+    let pinchRec = UIPinchGestureRecognizer()
     
     var startState: Bool = false
     var previousStartState: Bool = false
@@ -100,7 +100,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     let pizzaPizza: Advertiser = Advertiser()
     
     var altitude: Double = 0
-    let altitudeArray: [Double] = [600, 800, 1_000, 1_200, 1_600]
+    let altitudeArray: [Double] = [1_000, 1_100, 1_200, 1_400, 1_600]
     
     var currentIndex: Int = 0
     var otherIndex: Int = 0
@@ -113,6 +113,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     let filterResolution: Int = 7
     var previousPitch: [Double] = []
     
+    var userFreeToMoveMap = false
     
     override func viewDidLoad() {
         
@@ -180,8 +181,13 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.view.addSubview(beginAndEndButtonOverlay)
         self.beginAndEndButtonOverlay.addTarget(self, action: #selector(dashboard.buttonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
-    //setup initial view of map
+        let locateMeIconSize: CGFloat = self.view.frame.height / 12
+        self.locateMeIcon.frame = CGRect(x: self.view.frame.width / 18, y: self.backgroundImage.frame.height, width: locateMeIconSize, height: locateMeIconSize)
+        self.locateMeIcon.image = UIImage(named: "locate_me_icon")
+        self.view.addSubview(locateMeIcon)
+        self.locateMeIcon.hidden = true
         
+        //setup initial view of map
         self.locationManager.startUpdatingLocation()
         while self.locationManager.location?.coordinate == nil {}
         
@@ -190,11 +196,10 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         previousLocation = center
         
         let camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitudeArray[0], pitch: 0, heading: 0)
-        self.mapView.setCamera(camera, animated: true)
+        self.mapView.setCamera(camera, animated: false)
         self.mapView.setCenterCoordinate(center, animated: true)
         
-    //Create advertiser instances and annotations on map
-
+        //Create advertiser instances and annotations on map
         let advertiserArray: [Advertiser]!
         if inSimulation == true {
             advertiserArray = [joesDiner, cornerCafe, Steakhouse, flowerBoutique]
@@ -297,16 +302,49 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
 */
         
         
-    //Add pan gesture recognizer for menu
+        //Add pan gesture recognizers
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(dashboard.pinchedView(_:)))
+        self.view.addGestureRecognizer(pinch)
+        
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        
+    }
+    
+    //called when user touches screen; only important for when user touches mapView
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.first!
+        let tempPoint = touch.locationInView(self.view)
+        let point =  (tempPoint.x, tempPoint.y)
+        switch point{
+        //user touches locateMeIcon when userFreeToMoveMap == true
+        case let (x, y) where self.locateMeIcon.frame.origin.x...(self.locateMeIcon.frame.origin.x + self.locateMeIcon.frame.width) ~= x && self.locateMeIcon.frame.origin.y...(self.locateMeIcon.frame.origin.y + self.locateMeIcon.frame.height) ~= y: //&& userFreeToMoveMap == true:
+            self.locateMeIcon.hidden = true
+            self.userFreeToMoveMap = false
+            print("case deus")
+    
+        default:
+            break
+        }
     }
     
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first!
-        let point = touch.locationInView(self.view)
-        if (point.x >= self.mapView.frame.origin.x && point.x <= self.mapView.frame.width) && (point.y >= self.mapView.frame.origin.y && point.y <= (self.mapView.frame.origin.y + self.mapView.frame.height)) {
-            print("here")
+        let tempPoint = touch.locationInView(self.view)
+        let point = (tempPoint.x, tempPoint.y)
+        switch point {
+        //user touch moves on map case
+        case let (x, y) where self.mapView.frame.origin.x...self.mapView.frame.width ~= x && self.mapView.frame.origin.y...self.view.frame.height ~= y:
+            if userFreeToMoveMap == false && startState == false{
+                userFreeToMoveMap = true
+            } else if userFreeToMoveMap == true && startState == false {
+                self.locateMeIcon.hidden = false
+            } else if startState == false {
+                self.locateMeIcon.hidden = true
+            }
+            print("case uno")
+        default:
+            break
         }
     }
     
@@ -315,7 +353,8 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         if startState != previousStartState && startState == true {
             currentTrip.startNewTrip()
-            
+            let camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: 60, heading: currentHeading)
+            self.mapView.setCamera(camera, animated: true)
         } else if startState != previousStartState && startState == false {
             currentTrip.tripPath = currentTripLog
             currentTrip.save()
@@ -339,10 +378,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         }
         
         center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        //self.mapView.setCenterCoordinate(center, animated: true)
-        
-        //var businessDistance: Double!
-        
+
         let advertiserArray: [Advertiser]!
         let advertiserLocationsArray: [[CLLocationCoordinate2D]]!
         if inSimulation == false {
@@ -361,16 +397,13 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         let displacement = calcDistance(center, locationB: previousLocation)
         integratedDisplacement += displacement
-        
-        let velocity = displacement / (currentTime - previousTime) * 3.6
-        
-        
+
         if startState == true {
             //let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: altitude, longitudeDelta: zoom))
             //self.mapView.setRegion(region, animated: true)
             
-            let camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: 60, heading: currentHeading)
-            self.mapView.setCamera(camera, animated: true)
+            
+            self.mapView.setCenterCoordinate(center, animated: true)
             
             currentTrip.secretSauce(center)
             
@@ -386,13 +419,13 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
                     let polyLine = MKPolyline(coordinates: &a , count: a.count)
                     mapView.addOverlay(polyLine)
                 }
-            self.distanceLabel.text = currentTrip.currentDrivingMode
-            self.velocityLabel.text = "Velocity: \(roundDouble(currentTrip.velocity, decimalPlaces: 2))km/h"
-            self.paymentLabel.text = "Rate: \(roundDouble(currentTrip.currentRate, decimalPlaces: 10))\t total: \(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
             self.paymentIndicatorLabel.text = "$\(roundDouble(currentTrip.totalTripPayment, decimalPlaces: 2))"
         } else {
-            self.distanceLabel.text = "Distance: 0m"
-            self.velocityLabel.text = "Velocity: \(roundDouble(velocity, decimalPlaces: 2))km/h"
+            if userFreeToMoveMap == false {
+                let camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitudeArray[0], pitch: 0, heading: 0)
+                print(altitude)
+                self.mapView.setCamera(camera, animated: true)
+            }
         }
         
         previousLocation = center
@@ -426,9 +459,9 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     //update heading of mapView
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         currentHeading = newHeading.trueHeading
-        print(currentHeading)
         if(startState == true) {
-            self.mapView.camera.heading = currentHeading
+            let camera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: 60, heading: currentHeading)
+            self.mapView.setCamera(camera, animated: true)
         }
     }
     
@@ -497,6 +530,17 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     //animate status bar back on screen
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide
+    }
+    
+    
+    func pinchedView(sender: UIPinchGestureRecognizer) {
+        print("here")
+        self.locateMeIcon.hidden = false
+    }
+    
+    
+    func resetToCurrentPositionView() {
+        
     }
     
 }

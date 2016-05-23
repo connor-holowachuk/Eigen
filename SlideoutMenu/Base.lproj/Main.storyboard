@@ -52,47 +52,14 @@
                         <viewControllerLayoutGuide type="top" id="2xW-BU-aS9"/>
                         <viewControllerLayoutGuide type="bottom" id="h7f-JU-94h"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hzu-7p-4oD">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="hzu-7p-4oD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q55-Lw-T9d">
-                                <rect key="frame" x="20" y="433" width="560" height="147"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="D9i-nE-r74">
-                                    <rect key="frame" x="0.0" y="0.0" width="560" height="147"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AsI-3Y-5xd">
-                                            <rect key="frame" x="8" y="46" width="544" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tg-Ei-lJg">
-                                            <rect key="frame" x="8" y="75" width="544" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jZz-Fy-QDv">
-                                            <rect key="frame" x="8" y="104" width="544" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="gfk-TR-Rbi"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="distanceLabel" destination="AsI-3Y-5xd" id="31B-Rn-qRT"/>
-                        <outlet property="paymentLabel" destination="jZz-Fy-QDv" id="UTu-og-Ctz"/>
-                        <outlet property="velocityLabel" destination="2tg-Ei-lJg" id="Kqp-i5-6vQ"/>
                         <segue destination="4Mf-Pg-0mg" kind="show" identifier="toBackTableView" id="VIm-qh-h9F"/>
                     </connections>
                 </viewController>
