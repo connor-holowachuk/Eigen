@@ -23,6 +23,7 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
     
     var headerLabel = UIImageView()
     var slideMenuIcon = UIImageView()
+    var slideMenuButton = UIButton()
     
     var noDataToDisplayLabel = UILabel()
     
@@ -74,6 +75,12 @@ class history : UIViewController, UITableViewDataSource, UITableViewDelegate, UI
         self.slideMenuIcon.frame = CGRectMake(self.view.frame.width * 0.055556, slideMenuIconY, iconSize, iconSize)
         self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
         self.view.addSubview(slideMenuIcon)
+        
+        let sMBES: CGFloat = 10.0
+        self.slideMenuButton.frame = CGRectMake(self.slideMenuIcon.frame.origin.x - sMBES, self.slideMenuIcon.frame.origin.y - sMBES, self.slideMenuIcon.frame.width + (2 * sMBES), self.slideMenuIcon.frame.height + (2 * sMBES))
+        self.slideMenuButton.titleLabel?.text = ""
+        self.slideMenuButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(slideMenuButton)
         
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
     }

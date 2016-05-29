@@ -30,6 +30,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     var headerLabel = UIImageView()
     var backgroundImage = UIImageView()
     var slideMenuIcon = UIImageView()
+    var slideMenuButton = UIButton()
     var paymentIndicatorLabel = UILabel()
     var paymentIndicatorSubLabel = UILabel()
     var beginAndEndButton = UIImageView()
@@ -154,6 +155,12 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
         self.view.addSubview(slideMenuIcon)
         
+        let sMBES: CGFloat = 10.0
+        self.slideMenuButton.frame = CGRectMake(self.slideMenuIcon.frame.origin.x - sMBES, self.slideMenuIcon.frame.origin.y - sMBES, self.slideMenuIcon.frame.width + (2 * sMBES), self.slideMenuIcon.frame.height + (2 * sMBES))
+        self.slideMenuButton.titleLabel?.text = ""
+        self.slideMenuButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(slideMenuButton)
+        
         self.paymentIndicatorLabel.text = "$12.09"
         self.paymentIndicatorLabel.font = UIFont(name: "AvenirNext-Regular", size: 58.0)
         self.paymentIndicatorLabel.textAlignment = NSTextAlignment.Center
@@ -259,49 +266,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         
         currentTrip = TripInfo(advertisers: advertiserArray, startingPosition: previousLocation)
         
-        /*
-        self.mapView.setCenterCoordinate(center, animated: true)
-        self.mapView.camera.altitude = 808
-        self.motionManager.accelerometerUpdateInterval = 0.03
-        self.mapView.pitchEnabled = false
-        self.mapView.zoomEnabled = true
-        
-
-        if self.motionManager.accelerometerAvailable == true {
-            self.motionManager.startAccelerometerUpdatesToQueue(NSOperationQueue()) {_,_ in
-                let zReading = self.motionManager.accelerometerData?.acceleration.z
-                let magnitude = calc3DMagnitude((self.motionManager.accelerometerData?.acceleration.x)!, y: (self.motionManager.accelerometerData?.acceleration.y)!, z: zReading!)
-                let zRelToMag = acos(zReading! / magnitude) * 180 / M_PI
-                
-                self.currentPitch = (180 - abs(zRelToMag)) / 2
-                if self.currentPitch > 45.0 {
-                    self.currentPitch = 45.0
-                } else if self.currentPitch < 5.0 {
-                    self.currentPitch = 5.0
-                }
-
-                
-                //let currentPitchDelta = self.currentPitch - self.previousPitch
-                self.previousPitch.insert(self.currentPitch, atIndex: 0)
-                if self.previousPitch.count > self.filterResolution {
-                    self.previousPitch.removeAtIndex(self.filterResolution)
-                }
-                print(self.previousPitch)
-                var pitchDelta: Double = 0.0
-                for index in 0...self.previousPitch.count - 1{
-                    pitchDelta += self.previousPitch[index]
-                }
-                pitchDelta /= Double(self.filterResolution)
-                
-                self.currentPitch = pitchDelta
-                
-                self.mapView.camera.pitch = CGFloat(self.currentPitch)                
-            }
-            print("here")
-        }
-*/
-        
-        
         //Add pan gesture recognizers
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(dashboard.pinchedView(_:)))
         self.view.addGestureRecognizer(pinch)
@@ -321,7 +285,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
             self.locateMeIcon.hidden = true
             self.userFreeToMoveMap = false
             print("case deus")
-    
+            
         default:
             break
         }
