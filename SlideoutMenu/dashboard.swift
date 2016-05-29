@@ -18,6 +18,7 @@ import UIKit
 import CoreLocation
 import CoreMotion
 import MapKit
+//import Firebase
 
 
 let inSimulation = false
