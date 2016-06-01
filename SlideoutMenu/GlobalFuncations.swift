@@ -38,6 +38,17 @@ extension UIImage {
     }
 }
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
     let size = image.size
     
@@ -102,3 +113,10 @@ func calc3DMagnitude(x: Double, y: Double, z: Double) -> Double {
     let magnitude = sqrt(preSqrtSoS)
     return magnitude
 }
+
+func pickRandomColour() -> UIColor {
+    let colourArray: [UIColor] = [UIColor(hex: 0x44DABC), UIColor(hex: 0x5EA8FB), UIColor(hex: 0xC46BEF)]
+    let randomInt = arc4random_uniform(UInt32(colourArray.count))
+    return colourArray[Int(randomInt)]
+}
+
