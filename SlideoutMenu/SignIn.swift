@@ -118,7 +118,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         let textFieldOffsetX: CGFloat = self.view.frame.width * 0.04376266667 + 2 * textFieldOffsetY
         
         self.passwordTextField.delegate = self
-        self.passwordTextField.font = UIFont(name: "AvenirNext-Regular", size: loginBarHeight - textFieldOffsetY)
+        self.passwordTextField.font = UIFont(name: "AvenirNext-Regular", size: loginBarHeight - (textFieldOffsetY * 0.7071))
         self.passwordTextField.autocorrectionType = UITextAutocorrectionType.No
         self.passwordTextField.autocapitalizationType = UITextAutocapitalizationType.None
         self.passwordTextField.secureTextEntry = true
@@ -128,7 +128,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.view.addSubview(self.passwordTextField)
         
         self.emailTextField.delegate = self
-        self.emailTextField.font = UIFont(name: "AvenirNext-Regular", size: loginBarHeight - textFieldOffsetY)
+        self.emailTextField.font = UIFont(name: "AvenirNext-Regular", size: loginBarHeight - (textFieldOffsetY * 0.7071))
         self.emailTextField.autocorrectionType = UITextAutocorrectionType.No
         self.emailTextField.autocapitalizationType = UITextAutocapitalizationType.None
         self.emailTextField.keyboardType = UIKeyboardType.EmailAddress
@@ -137,7 +137,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.emailTextField.frame = CGRectMake(self.emailBarImage.frame.origin.x + textFieldOffsetX, self.emailBarImage.frame.origin.y - textFieldOffsetY, self.emailBarImage.frame.width - textFieldOffsetX, loginBarHeight)
         self.view.addSubview(self.emailTextField)
         
-        let signUpTextSize = self.view.frame.height * 0.022
+        let signUpTextSize = self.view.frame.height * 0.025
         let signUpTextY = self.view.frame.height * 11.0 / 12.0 - signUpTextSize
         let signUpText1Width = signUpTextSize / 0.091
         let signUpText2Width = signUpTextSize / 0.242
@@ -151,7 +151,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.signUpLabel1.frame = CGRectMake(signUpText1X, signUpTextY, signUpText1Width, signUpTextSize + 4)
         self.view.addSubview(signUpLabel1)
         
-        let signUpText2X: CGFloat = self.signUpLabel1.frame.origin.x + signUpText1Width
+        let signUpText2X: CGFloat = self.signUpLabel1.frame.origin.x + signUpText1Width - 6
         self.signUpLabel2.text = "Sign up"
         self.signUpLabel2.textColor = UIColor.whiteColor()
         self.signUpLabel2.textAlignment = NSTextAlignment.Right
@@ -172,7 +172,6 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
     
     func signInButtonPressed(sender: UIButton) {
         print(":D")
-        
         self.errorMessage = 0
         
         self.enteredEmail = self.emailTextField.text
@@ -192,26 +191,27 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         }
         
         
-        self.showPopUp(errorMessage)
+        //self.showPopUp(errorMessage)
     }
     
     func login() {
-        var someVal = false
-        while someVal == false {
-            FIRAuth.auth()?.signInWithEmail(self.enteredEmail, password: self.enteredPassword) {
-                user, error in
+        FIRAuth.auth()?.signInWithEmail(self.enteredEmail, password: self.enteredPassword) {
+            user, error in
                 
-                someVal = true
+            if error != nil {
                 
                 if error?.code == 17011 {
                     self.errorMessage = 3
                 } else if error?.code == 17999 {
                     self.errorMessage = 4
                 }
-                
-                print("here")
                 print(error?.code)
                     
+            } else {
+                print("next VC initiated")
+                let mainVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! SWRevealViewController
+                mainVC.transitioningDelegate = self
+                self.presentViewController(mainVC, animated: true, completion: nil)
             }
             
         }

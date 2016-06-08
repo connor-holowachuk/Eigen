@@ -75,6 +75,10 @@ func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
     return newImage
 }
 
+struct currentDriver {
+    
+}
+
 let currentUser = Driver(UsrNm: "connor_chuk", PsWrd: "hello", Nm: "connor holowachuk", CrCmnpy: "acura", CrMdl: "TSX", CrYr: 2001, StrtAdrss: "706 randolph ave.", Cty: "windsor", Prvnc: "on", PstlCd: "n9b 2t8", Cntry: "canada")
 
 //Global functions

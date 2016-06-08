@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 import QuartzCore
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 class AnimatableView: UIView {
     func animate(){
@@ -37,6 +40,7 @@ public class PopUp: UIViewController, UITextFieldDelegate {
     var headerLabel = UILabel()
     var subTitleLabel1 = UILabel()
     var subTitleLabel2 = UILabel()
+    var errorSigningUpSubtitleTexts: [[String]] = [["It looks like you missed", "some lines."], ["The passwords you entered", "don't match."], ["Your password must be more than", "6 characters and have a number."], ["It looks like you entered", "an invalid email."]]
     
     var overlay = UIVisualEffectView()
     
@@ -62,6 +66,7 @@ public class PopUp: UIViewController, UITextFieldDelegate {
     var PCField = UITextField()
     var passwordField = UITextField()
     var confirmPasswordField = UITextField()
+    var textFieldArray: [UITextField]!
     
     var name: String?
     var email: String?
@@ -212,7 +217,7 @@ public class PopUp: UIViewController, UITextFieldDelegate {
         dismissButton.addTarget(self, action: #selector(PopUp.attemptLogin(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(dismissButton)
         
-        let headerFontSize = self.view.frame.height * 0.03748123127
+        let headerFontSize = self.view.frame.height * 0.0374
         let textWidth = contentView.frame.width * 0.872
         let textX = contentView.frame.origin.x + contentView.frame.width * 0.064
         headerLabel.text = "Go ahead, sign up."
@@ -222,7 +227,7 @@ public class PopUp: UIViewController, UITextFieldDelegate {
         headerLabel.frame = CGRectMake(textX, contentView.frame.origin.y + self.view.frame.height * 0.0416007996, textWidth, headerFontSize * 2)
         view.addSubview(headerLabel)
         
-        let subTitleFontSize = self.view.frame.height * 0.0228
+        let subTitleFontSize = self.view.frame.height * 0.023
         let subTitleHeight = subTitleFontSize + 4.0
         let subTitle1Y = self.headerLabel.frame.origin.y + self.headerLabel.frame.height + (subTitleHeight * 0.666667)
         subTitleLabel1.text = "Quickly fill out the information below"
@@ -254,7 +259,7 @@ public class PopUp: UIViewController, UITextFieldDelegate {
         view.addSubview(cancelButton)
         
         let lineImageArray: [UIImageView] = [self.nameLineImage, self.emailLineImage, self.addressLineImage, self.addressLine2Image, self.passwordLineImage, self.confirmPasswordLineImage]
-        let textFieldArray: [UITextField] = [self.nameField, self.emailField, self.addressField, self.cityField, self.PCField, self.passwordField, self.confirmPasswordField]
+        textFieldArray = [self.nameField, self.emailField, self.addressField, self.cityField, self.PCField, self.passwordField, self.confirmPasswordField]
         
         let imageWidth = contentView.frame.width * 0.8
         let imageX = contentView.frame.origin.x + contentView.frame.width * 0.1
@@ -321,12 +326,70 @@ public class PopUp: UIViewController, UITextFieldDelegate {
     @objc private func attemptLogin(sender: UIButton) {
         let textFieldArray: [UITextField] = [self.nameField, self.emailField, self.addressField, self.cityField, self.PCField, self.passwordField, self.confirmPasswordField]
         
+        var okayToSignUp = true
+        
         for index in 0...textFieldArray.count - 1 {
-            if textFieldArray[index].text == "" {
+            if textFieldArray[index].text!.isEmpty {
+                okayToSignUp = false
+                print("empty TF found")
                 UIView.animateWithDuration(1.2) {
-                    textFieldArray[index].attributedPlaceholder = NSAttributedString(string: self.linePlaceholderTextArray[index], attributes: [NSForegroundColorAttributeName: UIColor.redColor().colorWithAlphaComponent(0.9)])
+                    textFieldArray[index].attributedPlaceholder  = NSAttributedString(string: self.linePlaceholderTextArray[index], attributes: [NSForegroundColorAttributeName: UIColor.redColor().colorWithAlphaComponent(0.9)])
+                    
+                    self.subTitleLabel1.text = self.errorSigningUpSubtitleTexts[0][0]
+                    self.subTitleLabel2.text = self.errorSigningUpSubtitleTexts[0][1]
+                    self.subTitleLabel1.textColor = UIColor.redColor()
+                    self.subTitleLabel2.textColor = UIColor.redColor()
                 }
             }
+        }
+        
+        if self.passwordField.text! != self.confirmPasswordField.text! {
+            print("error entering PW")
+            okayToSignUp = false
+            UIView.animateWithDuration(1.2) {
+                self.passwordField.textColor = UIColor.redColor().colorWithAlphaComponent(0.9)
+                self.confirmPasswordField.textColor = UIColor.redColor().colorWithAlphaComponent(0.9)
+                
+                self.subTitleLabel1.text = self.errorSigningUpSubtitleTexts[1][0]
+                self.subTitleLabel2.text = self.errorSigningUpSubtitleTexts[1][1]
+                self.subTitleLabel1.textColor = UIColor.redColor()
+                self.subTitleLabel2.textColor = UIColor.redColor()
+            }
+        }
+        
+        
+    
+        
+        if okayToSignUp == true {
+            FIRAuth.auth()?.createUserWithEmail(self.emailField.text!, password: self.passwordField.text!, completion: {
+                user, error in
+                
+                print("signing up")
+                
+                if error != nil {
+                    print(error)
+                    
+                    if error?.code == 17026 {
+                        self.subTitleLabel1.text = self.errorSigningUpSubtitleTexts[2][0]
+                        self.subTitleLabel2.text = self.errorSigningUpSubtitleTexts[2][1]
+                        self.subTitleLabel1.textColor = UIColor.redColor()
+                        self.subTitleLabel2.textColor = UIColor.redColor()
+                    } else if error?.code == 17999 {
+                        self.subTitleLabel1.text = self.errorSigningUpSubtitleTexts[3][0]
+                        self.subTitleLabel2.text = self.errorSigningUpSubtitleTexts[3][1]
+                        self.subTitleLabel1.textColor = UIColor.redColor()
+                        self.subTitleLabel2.textColor = UIColor.redColor()
+                    }
+                    
+                } else {
+                    print(user)
+                    self.setupDatabaseForNewUser(user!)
+                    self.dismissPopUp(self.dismissButton)
+                }
+                
+            })
+            
+            
         }
     }
     
@@ -370,7 +433,6 @@ public class PopUp: UIViewController, UITextFieldDelegate {
     }
     
     public func showAlert(errorMessage: Int?, buttonColor: UIColor, other: Bool) {
-        //userAction = action
         let window: UIWindow = UIApplication.sharedApplication().keyWindow!
         window.addSubview(view)
         window.bringSubviewToFront(view)
@@ -418,7 +480,23 @@ public class PopUp: UIViewController, UITextFieldDelegate {
     }
     
     public func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        
+        var textFieldIndex: Int = 0
+        
+        if textFieldArray != nil {
+            for index in 0...textFieldArray.count - 1 {
+                if textFieldArray[index] == textField {
+                    textFieldIndex = index + 1
+                }
+            }
+        }
+        
+        if textFieldIndex == textFieldArray.count {
+            textField.resignFirstResponder()
+        } else {
+            self.textFieldArray[textFieldIndex].becomeFirstResponder()
+        }
+        
         return true
     }
     
@@ -447,4 +525,54 @@ public class PopUp: UIViewController, UITextFieldDelegate {
         }
     }
     
+    public func setupDatabaseForNewUser(user: FIRUser) {
+        let ref = FIRDatabase.database().reference()
+        
+        let databaseUserChildrenNames: [String] =
+        [
+            "general-info",
+            "user-preferences",
+            "driving-registry"
+        ]
+        
+        let databaseSubChildrenNames: [[String]] =
+        [
+            ["name", "email", "street-address", "city", "postal-code"],
+            ["ui-colour", "map-type"],
+            ["is-registered", "payment-method"]
+        ]
+        
+        let defaultAnswers: [[NSObject]] =
+        [
+            [self.nameField.text!, self.emailField.text!, self.addressField.text!, self.cityField.text!, self.PCField.text!],
+            ["blue", "standard"],
+            [false, ""]
+        ]
+        
+        for index1 in 0...databaseUserChildrenNames.count - 1 {
+            for index2 in 0...databaseSubChildrenNames[index1].count - 1 {
+                ref.child("users").child(user.uid).child(databaseUserChildrenNames[index1]).child(databaseSubChildrenNames[index1][index2]).setValue(defaultAnswers[index1][index2])
+            }
+        }
+        /*
+        for index in 0...textFieldArray.count - 2 {
+            ref.child("users").child(user.uid).child(self.linePlaceholderTextArray[index]).setValue(textFieldArray[index].text!)
+        }
+        */
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

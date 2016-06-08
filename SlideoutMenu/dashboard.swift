@@ -28,7 +28,8 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     var mapView = MKMapView()
     
-    var headerLabel = UIImageView()
+    var headerView = UIView()
+    var headerLabel = UILabel()
     var backgroundImage = UIImageView()
     var slideMenuIcon = UIImageView()
     var slideMenuButton = UIButton()
@@ -40,6 +41,8 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     
     var pinchView = UIView()
     let pinchRec = UIPinchGestureRecognizer()
+    
+    let blueColour = UIColor(hex: 0x5EA8FB)
     
     var startState: Bool = false
     var previousStartState: Bool = false
@@ -122,6 +125,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         print("---- in dashboard view controller ----")
         
         super.viewDidLoad()
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         self.mapView.frame = CGRectMake(0, self.view.bounds.height / 3.0, self.view.bounds.width, self.view.bounds.height * 2.0 / 3.0)
         self.mapView.delegate = self
@@ -139,16 +143,25 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.mapView.pitchEnabled = true
         self.view.addSubview(mapView)
         
+        /*
         self.backgroundImage.frame = CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height / 3.0 + (self.view.bounds.height * 0.02273863068))
         self.backgroundImage.image = UIImage(named: "white_header_background_with_shade")
         self.view.addSubview(backgroundImage)
+        */
+        
+        self.headerView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height / 3.0)
+        self.headerView.backgroundColor = self.blueColour
+        self.view.addSubview(self.headerView)
         
         let iconSize: CGFloat = self.view.frame.height * 0.02464467766
         
-        let headerLabelWidth: CGFloat = self.view.frame.width / 3.3334
+        let headerLabelWidth: CGFloat = self.view.frame.width / 3
         let headerLabelHeight: CGFloat = headerLabelWidth * 95.0 / 180.0
         self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height / 12.0 - 20, headerLabelWidth, headerLabelHeight)
-        self.headerLabel.image = UIImage(named: "eigen_title_header")
+        self.headerLabel.text = "eigen"
+        self.headerLabel.textAlignment = NSTextAlignment.Center
+        self.headerLabel.textColor = UIColor.whiteColor()
+        self.headerLabel.font = UIFont(name: "AvenirNext-Regular", size: 36.9)
         self.view.addSubview(headerLabel)
         
         let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0 - 5
@@ -165,14 +178,14 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         self.paymentIndicatorLabel.text = "$12.09"
         self.paymentIndicatorLabel.font = UIFont(name: "AvenirNext-Regular", size: 58.0)
         self.paymentIndicatorLabel.textAlignment = NSTextAlignment.Center
-        self.paymentIndicatorLabel.textColor = UIColor(hex: 0x515151)
+        self.paymentIndicatorLabel.textColor = UIColor.whiteColor()
         self.paymentIndicatorLabel.frame = CGRectMake(0, self.view.frame.height / 6.0 - 5, self.view.frame.width, 60.0)
         self.view.addSubview(paymentIndicatorLabel)
         
         self.paymentIndicatorSubLabel.text = "total earnings this trip"
         self.paymentIndicatorSubLabel.font = UIFont(name: "AvenirNext-Regular", size: 14.0)
         self.paymentIndicatorSubLabel.textAlignment = NSTextAlignment.Center
-        self.paymentIndicatorSubLabel.textColor = UIColor(hex: 0xC9D0D6)
+        self.paymentIndicatorSubLabel.textColor = UIColor.whiteColor()
         let paymentIndicatorSubLabelY = self.paymentIndicatorLabel.frame.origin.y + self.paymentIndicatorLabel.frame.size.height
         self.paymentIndicatorSubLabel.frame = CGRectMake(0, paymentIndicatorSubLabelY, self.view.frame.width, 15.0)
         self.view.addSubview(paymentIndicatorSubLabel)

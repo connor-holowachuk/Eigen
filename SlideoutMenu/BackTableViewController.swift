@@ -27,7 +27,7 @@ class BackTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.backgroundColor = UIColor(hex: 0x262531)
+        tableView.backgroundColor = UIColor(hex: 0x5EA8FB)
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.scrollEnabled = false
         return TableArray.count
@@ -38,11 +38,11 @@ class BackTableViewController: UITableViewController {
                 
         if indexPath.row == 0 {
             let profileCell = tableView.dequeueReusableCellWithIdentifier("c holowachuk", forIndexPath: indexPath) as! ProfileCell
-            profileCell.backgroundColor = UIColor.clearColor()
+            profileCell.backgroundColor = UIColor(hex: 0x5EA8FB)
             let profilePic = UIImage(named: "profile_pic_test")
             profileCell.ProfileImage?.image = profilePic
-            profileCell.ProfileLabel?.textColor = UIColor.lightTextColor()
-            profileCell.ProfileLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 20.0)
+            profileCell.ProfileLabel?.textColor = UIColor.whiteColor()
+            profileCell.ProfileLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20.0)
             profileCell.ProfileLabel?.text = currentUser.name
             profileCell.ProfileLabel?.center = CGPoint(x: self.view.frame.width * 0.34765 + (profileCell.ProfileLabel.frame.width / 2), y: self.view.frame.height * 0.3476521739)// - profileCell.ProfileLabel.frame.height)
             profileCell.UserNameLabel?.textColor = UIColor.lightTextColor().colorWithAlphaComponent(0.4)
@@ -60,10 +60,10 @@ class BackTableViewController: UITableViewController {
         } else if indexPath.row == 6{
             let signOutCell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row], forIndexPath: indexPath) as! MenuCell
             signOutCell.MenuImage?.image = UIImage(named: ImagesArray[indexPath.row - 1])
-            signOutCell.MenuLabel?.textColor = UIColor.lightTextColor().colorWithAlphaComponent(0.6)
+            signOutCell.MenuLabel?.textColor = UIColor(hex: 0x6B707B).colorWithAlphaComponent(0.6)
             signOutCell.MenuLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
             signOutCell.MenuLabel?.text = "sign out"
-            signOutCell.backgroundColor = UIColor.clearColor()
+            signOutCell.backgroundColor = UIColor(hex: 0xF3F3F3)
             
             let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: signOutCell.frame.size.width, height: signOutCell.frame.size.width))
             selectedView.backgroundColor = UIColor.clearColor()
@@ -73,10 +73,10 @@ class BackTableViewController: UITableViewController {
         } else {
             let menuCell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row], forIndexPath: indexPath) as! MenuCell
             menuCell.MenuImage?.image = UIImage(named: ImagesArray[indexPath.row - 1])
-            menuCell.MenuLabel?.textColor = UIColor.lightTextColor()
+            menuCell.MenuLabel?.textColor = UIColor(hex: 0x6B707B)
             menuCell.MenuLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
             menuCell.MenuLabel?.text = TableArray[indexPath.row]
-            menuCell.backgroundColor = UIColor.clearColor()
+            menuCell.backgroundColor = UIColor(hex: 0xF3F3F3)
            // menuCell.textLabel?.text = TableArray[indexPath.row]
             
             
