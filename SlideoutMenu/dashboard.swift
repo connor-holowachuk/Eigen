@@ -42,8 +42,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
     var pinchView = UIView()
     let pinchRec = UIPinchGestureRecognizer()
     
-    let blueColour = UIColor(hex: 0x5EA8FB)
-    
     var startState: Bool = false
     var previousStartState: Bool = false
     
@@ -150,7 +148,7 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         */
         
         self.headerView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height / 3.0)
-        self.headerView.backgroundColor = self.blueColour
+        self.headerView.backgroundColor = UIColor.blueColor()
         self.view.addSubview(self.headerView)
         
         let iconSize: CGFloat = self.view.frame.height * 0.02464467766

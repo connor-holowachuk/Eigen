@@ -27,7 +27,7 @@ class BackTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.backgroundColor = UIColor(hex: 0x5EA8FB)
+        tableView.backgroundColor = UIColor.eigenBlueColor()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         tableView.scrollEnabled = false
         return TableArray.count
@@ -38,7 +38,7 @@ class BackTableViewController: UITableViewController {
                 
         if indexPath.row == 0 {
             let profileCell = tableView.dequeueReusableCellWithIdentifier("c holowachuk", forIndexPath: indexPath) as! ProfileCell
-            profileCell.backgroundColor = UIColor(hex: 0x5EA8FB)
+            profileCell.backgroundColor = UIColor.eigenBlueColor()
             let profilePic = UIImage(named: "profile_pic_test")
             profileCell.ProfileImage?.image = profilePic
             profileCell.ProfileLabel?.textColor = UIColor.whiteColor()
@@ -119,6 +119,8 @@ class BackTableViewController: UITableViewController {
     
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        
         if indexPath.row == 6 {
             
             let alertController = UIAlertController(title: "Sign out?", message: "Are you sure you want to sign out?", preferredStyle: UIAlertControllerStyle.Alert)

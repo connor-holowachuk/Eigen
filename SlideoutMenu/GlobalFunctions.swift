@@ -49,6 +49,15 @@ extension UIViewController {
     }
 }
 
+extension UIColor {
+    class func eigenBlueColor() -> UIColor { return UIColor(hex: 0x5EA8FB) }
+    class func eigenLightGrayColor() -> UIColor { return UIColor(hex: 0xF3F3F3) }
+    class func eigenMidGrayTextColor() -> UIColor { return UIColor(hex: 0x6B707B) }
+    class func eigenDarkGrayTextColor() -> UIColor { return UIColor(hex: 0x3B3B3B) }
+    class func eigenPurpleColor() -> UIColor { return UIColor(hex: 0xC46BEF) }
+    class func eigenTurquoiseColor() -> UIColor { return UIColor(hex: 0x4DF4C6) }
+}
+
 func ResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
     let size = image.size
     
@@ -119,7 +128,7 @@ func calc3DMagnitude(x: Double, y: Double, z: Double) -> Double {
 }
 
 func pickRandomColour() -> UIColor {
-    let colourArray: [UIColor] = [UIColor(hex: 0x44DABC), UIColor(hex: 0x5EA8FB), UIColor(hex: 0xC46BEF)]
+    let colourArray: [UIColor] = [UIColor.eigenPurpleColor(), UIColor.eigenBlueColor(), UIColor.eigenTurquoiseColor()]
     let randomInt = arc4random_uniform(UInt32(colourArray.count))
     return colourArray[Int(randomInt)]
 }

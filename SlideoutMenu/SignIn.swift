@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate{
     
-    var backgroundColour = UIColor(hex: 0x5EA8FB)
+    var backgroundColour = UIColor.eigenBlueColor()
     
     var header1 = UILabel()
     var header2 = UILabel()
