@@ -1,5 +1,5 @@
 //
-//  GlobalFuncations.swift
+//  GlobalFunctions.swift
 //  SlideoutMenu
 //
 //  Created by Connor Holowachuk on 2016-05-03.
@@ -79,7 +79,7 @@ struct currentDriver {
     
 }
 
-let currentUser = Driver(UsrNm: "connor_chuk", PsWrd: "hello", Nm: "connor holowachuk", CrCmnpy: "acura", CrMdl: "TSX", CrYr: 2001, StrtAdrss: "706 randolph ave.", Cty: "windsor", Prvnc: "on", PstlCd: "n9b 2t8", Cntry: "canada")
+let currentUser = Driver(UsrNm: "connor_chuk", PsWrd: "hello", Nm: "Connor Holowachuk", CrCmnpy: "Acura", CrMdl: "TSX", CrYr: 2001, StrtAdrss: "706 Randolph Ave.", Cty: "Windsor", Prvnc: "ON", PstlCd: "N9B 2T8", Cntry: "Canada")
 
 //Global functions
 

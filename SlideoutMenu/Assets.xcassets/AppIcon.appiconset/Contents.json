@@ -23,13 +23,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appIcon120x120_swiss2.png",
+      "filename" : "appIcon120x120.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appIcon180x180_swiss2.png",
+      "filename" : "appIcon180x180.png",
       "scale" : "3x"
     }
   ],

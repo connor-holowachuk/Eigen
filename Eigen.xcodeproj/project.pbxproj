@@ -38,7 +38,7 @@
 		B3EDF0411CE63E2900383C2C /* RadialGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EDF0401CE63E2900383C2C /* RadialGraph.swift */; };
 		B3FF544C1CD8C32F0091D50D /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544B1CD8C32F0091D50D /* Driver.swift */; };
 		B3FF544E1CD8C7C30091D50D /* TripInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544D1CD8C7C30091D50D /* TripInfo.swift */; };
-		B3FF54501CD8CAB50091D50D /* GlobalFuncations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544F1CD8CAB50091D50D /* GlobalFuncations.swift */; };
+		B3FF54501CD8CAB50091D50D /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FF544F1CD8CAB50091D50D /* GlobalFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +100,7 @@
 		B3EDF0401CE63E2900383C2C /* RadialGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialGraph.swift; sourceTree = "<group>"; };
 		B3FF544B1CD8C32F0091D50D /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		B3FF544D1CD8C7C30091D50D /* TripInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripInfo.swift; sourceTree = "<group>"; };
-		B3FF544F1CD8CAB50091D50D /* GlobalFuncations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFuncations.swift; sourceTree = "<group>"; };
+		B3FF544F1CD8CAB50091D50D /* GlobalFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +217,7 @@
 				B39FFF961CE7AB5F00F4AB79 /* TripRelated */,
 				B3DA10681CD28B2F009C7803 /* AppDelegate.swift */,
 				B39FFF991CE816C100F4AB79 /* PopAnimator.swift */,
-				B3FF544F1CD8CAB50091D50D /* GlobalFuncations.swift */,
+				B3FF544F1CD8CAB50091D50D /* GlobalFunctions.swift */,
 				B3DA106A1CD28B2F009C7803 /* ViewController.swift */,
 				B3DA109A1CD28C41009C7803 /* SupportingFiles */,
 			);
@@ -477,7 +477,7 @@
 				B3DA106B1CD28B2F009C7803 /* ViewController.swift in Sources */,
 				B3DA10691CD28B2F009C7803 /* AppDelegate.swift in Sources */,
 				B39E6C9F1CD3F89E00DFC8B2 /* profile.swift in Sources */,
-				B3FF54501CD8CAB50091D50D /* GlobalFuncations.swift in Sources */,
+				B3FF54501CD8CAB50091D50D /* GlobalFunctions.swift in Sources */,
 				B39E6CA11CD3F91B00DFC8B2 /* dashboard.swift in Sources */,
 				B3DA10991CD28C3A009C7803 /* SWRevealViewController.m in Sources */,
 				B39E6CA91CD4008F00DFC8B2 /* UIColorExtensions.swift in Sources */,

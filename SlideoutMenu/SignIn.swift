@@ -12,7 +12,7 @@ import FirebaseAuth
 
 class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate{
     
-    var backgroundColour = UIColor.whiteColor()
+    var backgroundColour = UIColor(hex: 0x5EA8FB)
     
     var header1 = UILabel()
     var header2 = UILabel()
@@ -48,7 +48,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignIn.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignIn.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
-        backgroundColour = pickRandomColour()
+        //backgroundColour = pickRandomColour()
         self.view.backgroundColor = backgroundColour
         
         //setup header text
@@ -132,6 +132,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.emailTextField.autocorrectionType = UITextAutocorrectionType.No
         self.emailTextField.autocapitalizationType = UITextAutocapitalizationType.None
         self.emailTextField.keyboardType = UIKeyboardType.EmailAddress
+        self.emailTextField.adjustsFontSizeToFitWidth = true
         self.emailTextField.attributedPlaceholder = NSAttributedString(string: "email", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.9)])
         self.emailTextField.textColor = UIColor.whiteColor()
         self.emailTextField.frame = CGRectMake(self.emailBarImage.frame.origin.x + textFieldOffsetX, self.emailBarImage.frame.origin.y - textFieldOffsetY, self.emailBarImage.frame.width - textFieldOffsetX, loginBarHeight)
@@ -178,20 +179,18 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.enteredPassword = self.passwordTextField.text
         print("\(self.enteredEmail), \(self.enteredPassword)")
         
-        
-        
         if self.enteredEmail == "" {
             errorMessage = 1
+            self.showPopUp(errorMessage)
         } else if self.enteredPassword == "" && self.enteredEmail != "" {
             errorMessage = 2
+            self.showPopUp(errorMessage)
         }
         
         if self.enteredEmail != "" && self.enteredPassword != "" {
             self.login()
         }
         
-        
-        //self.showPopUp(errorMessage)
     }
     
     func login() {
@@ -206,6 +205,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
                     self.errorMessage = 4
                 }
                 print(error?.code)
+                self.showPopUp(self.errorMessage)
                     
             } else {
                 print("next VC initiated")

@@ -500,6 +500,11 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         super.didReceiveMemoryWarning()
     }
     
+    //color of status bar
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
+    
     //display statusBar
     override func prefersStatusBarHidden() -> Bool {
         return false
