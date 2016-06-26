@@ -6,13 +6,14 @@
 //  Copyright © 2016 Connor Holowachuk. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 
 class MenuCell: UITableViewCell {
 
-    @IBOutlet var MenuImage: UIImageView!
-    @IBOutlet var MenuLabel: UILabel!
+    var MenuImage = UIImageView()
+    var MenuLabel = UILabel()
     
     
     override func awakeFromNib() {

@@ -6,14 +6,16 @@
 //  Copyright © 2016 Connor Holowachuk. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 
 class ProfileCell: UITableViewCell {
     
-    @IBOutlet weak var ProfileImage: UIImageView!
-    @IBOutlet weak var ProfileLabel: UILabel!
-    @IBOutlet weak var UserNameLabel: UILabel!
+    var ProfileImageCircle = UIImageView()
+    var ProfileImage = UIImageView()
+    var ProfileLabel = UILabel()
+    var UserNameLabel = UILabel()
     
     
     override func awakeFromNib() {

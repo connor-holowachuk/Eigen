@@ -123,7 +123,6 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         print("---- in dashboard view controller ----")
         
         super.viewDidLoad()
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         self.mapView.frame = CGRectMake(0, self.view.bounds.height / 3.0, self.view.bounds.width, self.view.bounds.height * 2.0 / 3.0)
         self.mapView.delegate = self
@@ -148,21 +147,22 @@ class dashboard : UIViewController, MKMapViewDelegate, CLLocationManagerDelegate
         */
         
         self.headerView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height / 3.0)
-        self.headerView.backgroundColor = UIColor.blueColor()
+        self.headerView.backgroundColor = UIColor.eigenBlueColor()
         self.view.addSubview(self.headerView)
         
-        let iconSize: CGFloat = self.view.frame.height * 0.02464467766
+        let iconSize: CGFloat = self.view.frame.height * 0.02954
         
-        let headerLabelWidth: CGFloat = self.view.frame.width / 3
-        let headerLabelHeight: CGFloat = headerLabelWidth * 95.0 / 180.0
-        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height / 12.0 - 20, headerLabelWidth, headerLabelHeight)
+        let headerTextHeight = self.view.frame.height * 0.057
+        let headerLabelWidth: CGFloat = self.view.frame.width * 2.0 / 3
+        let headerLabelExtraSpace: CGFloat = 3.0
+        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height * 0.061 - headerLabelExtraSpace, headerLabelWidth, headerTextHeight + 2.0 * headerLabelExtraSpace)
         self.headerLabel.text = "eigen"
         self.headerLabel.textAlignment = NSTextAlignment.Center
         self.headerLabel.textColor = UIColor.whiteColor()
-        self.headerLabel.font = UIFont(name: "AvenirNext-Regular", size: 36.9)
+        self.headerLabel.font = UIFont(name: "AvenirNext-Regular", size: headerTextHeight)
         self.view.addSubview(headerLabel)
         
-        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0 - 5
+        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0
         self.slideMenuIcon.frame = CGRectMake(self.view.frame.width * 0.055556, slideMenuIconY, iconSize, iconSize)
         self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
         self.view.addSubview(slideMenuIcon)

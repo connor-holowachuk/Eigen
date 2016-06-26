@@ -212,12 +212,12 @@
 			isa = PBXGroup;
 			children = (
 				B39E6CE81CD43E0A00DFC8B2 /* Main.storyboard */,
+				B3FF544F1CD8CAB50091D50D /* GlobalFunctions.swift */,
 				B35847571CD59137004B99F0 /* CellClasses */,
 				B35847141CD4C677004B99F0 /* PageViewControllers */,
 				B39FFF961CE7AB5F00F4AB79 /* TripRelated */,
 				B3DA10681CD28B2F009C7803 /* AppDelegate.swift */,
 				B39FFF991CE816C100F4AB79 /* PopAnimator.swift */,
-				B3FF544F1CD8CAB50091D50D /* GlobalFunctions.swift */,
 				B3DA106A1CD28B2F009C7803 /* ViewController.swift */,
 				B3DA109A1CD28C41009C7803 /* SupportingFiles */,
 			);

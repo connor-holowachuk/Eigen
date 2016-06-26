@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G12a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="pLd-Yv-U4l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G12a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4B-eT-ZXy">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -111,186 +111,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="c holowachuk" rowHeight="191" id="3Hb-Hn-6fK" customClass="ProfileCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="191"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Hb-Hn-6fK" id="VKB-am-Lo1">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="191"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O0m-p2-cmK">
-                                            <rect key="frame" x="8" y="133" width="203" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjJ-os-MfO">
-                                            <rect key="frame" x="57" y="16" width="105" height="105"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5xz-Z3-BwL">
-                                            <rect key="frame" x="8" y="157" width="203" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="ProfileImage" destination="bjJ-os-MfO" id="Smo-hq-PK3"/>
-                                    <outlet property="ProfileLabel" destination="O0m-p2-cmK" id="Frn-cX-1Ag"/>
-                                    <outlet property="UserNameLabel" destination="5xz-Z3-BwL" id="bkC-wP-Pzy"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dashboard" id="EtE-ob-2vF" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="219" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EtE-ob-2vF" id="YVQ-es-uzT">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rX6-n1-eQh">
-                                            <rect key="frame" x="56" y="15" width="246" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1sN-2Y-31Z">
-                                            <rect key="frame" x="30" y="17" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="1sN-2Y-31Z" id="52I-jD-pk4"/>
-                                    <outlet property="MenuLabel" destination="rX6-n1-eQh" id="MVV-d7-xNF"/>
-                                    <segue destination="lcj-zJ-oil" kind="custom" identifier="" customClass="SWRevealViewControllerSeguePushController" id="V92-jt-EQ9"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profile" id="fR2-vg-BIw" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="263" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fR2-vg-BIw" id="dhh-4j-Ifx">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv0-XF-W2h">
-                                            <rect key="frame" x="56" y="15" width="246" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ojZ-Od-a9U">
-                                            <rect key="frame" x="30" y="17" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="ojZ-Od-a9U" id="0Wu-gp-3zt"/>
-                                    <outlet property="MenuLabel" destination="Vv0-XF-W2h" id="uTN-Sf-4Jp"/>
-                                    <segue destination="CwC-B6-wgR" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="8RD-EQ-WeY"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="history" id="J5y-hj-bK8" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="307" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J5y-hj-bK8" id="Urc-Iv-Kqy">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0MY-m7-XtV">
-                                            <rect key="frame" x="56" y="15" width="246" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QuM-Sd-X3d">
-                                            <rect key="frame" x="30" y="17" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="QuM-Sd-X3d" id="Iv4-WA-qPl"/>
-                                    <outlet property="MenuLabel" destination="0MY-m7-XtV" id="YSY-fE-Kp4"/>
-                                    <segue destination="2Tr-hQ-hPJ" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="zgy-Nf-Gsm"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="settings" id="aCB-Ot-y7U" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="351" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aCB-Ot-y7U" id="S8s-cT-lZV">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0U-tm-Rdu">
-                                            <rect key="frame" x="56" y="15" width="246" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vof-jg-NWX">
-                                            <rect key="frame" x="30" y="17" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="Vof-jg-NWX" id="bP0-Tu-fsG"/>
-                                    <outlet property="MenuLabel" destination="j0U-tm-Rdu" id="H0i-p4-Go1"/>
-                                    <segue destination="7w6-Cm-ayl" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Oz4-pT-fVF"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="help" id="Cgy-PN-O5R" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="395" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cgy-PN-O5R" id="Zlb-G5-Lpm">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ti9-3E-aWF">
-                                            <rect key="frame" x="56" y="15" width="246" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQa-2L-9FF">
-                                            <rect key="frame" x="30" y="17" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="NQa-2L-9FF" id="ozK-vc-6Ff"/>
-                                    <outlet property="MenuLabel" destination="Ti9-3E-aWF" id="Ttc-SB-wkt"/>
-                                    <segue destination="poR-mf-HBK" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="OVr-9V-Rss"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="signOut" rowHeight="187" id="uza-Ma-mtU" customClass="MenuCell" customModule="Eigen" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="439" width="600" height="187"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uza-Ma-mtU" id="SNG-Mu-POK">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="187"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eL-7O-edl">
-                                            <rect key="frame" x="57" y="76" width="246" height="34"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JyG-Uc-LEc">
-                                            <rect key="frame" x="31" y="85" width="18" height="18"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="MenuImage" destination="JyG-Uc-LEc" id="LJy-b7-g7x"/>
-                                    <outlet property="MenuLabel" destination="9eL-7O-edl" id="Jdh-Mu-dPt"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="4Mf-Pg-0mg" id="fTl-1R-c19"/>
                             <outlet property="delegate" destination="4Mf-Pg-0mg" id="3qa-YQ-Buj"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="CwC-B6-wgR" kind="custom" identifier="profileSegue" customClass="SWRevealViewControllerSeguePushController" id="uQd-DJ-dXX"/>
+                        <segue destination="2Tr-hQ-hPJ" kind="custom" identifier="historySegue" customClass="SWRevealViewControllerSeguePushController" id="5RV-rP-Eyk"/>
+                        <segue destination="7w6-Cm-ayl" kind="custom" identifier="settingsSegue" customClass="SWRevealViewControllerSeguePushController" id="DeP-L1-jIR"/>
+                        <segue destination="poR-mf-HBK" kind="custom" identifier="helpSegue" customClass="SWRevealViewControllerSeguePushController" id="IFd-5L-rEr"/>
+                        <segue destination="lcj-zJ-oil" kind="custom" identifier="dashboardSegue" customClass="SWRevealViewControllerSeguePushController" id="cfV-mc-RIM"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0x9-ZX-wx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -437,7 +269,7 @@
         <!--Profile-->
         <scene sceneID="5QT-p5-bB9">
             <objects>
-                <viewController id="CwC-B6-wgR" customClass="profile" customModule="Eigen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profile" id="CwC-B6-wgR" customClass="profile" customModule="Eigen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jol-GV-hsK"/>
                         <viewControllerLayoutGuide type="bottom" id="Upr-1E-Uop"/>
@@ -454,7 +286,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="V92-jt-EQ9"/>
-        <segue reference="IjC-Pj-fgm"/>
+        <segue reference="VIm-qh-h9F"/>
+        <segue reference="cfV-mc-RIM"/>
     </inferredMetricsTieBreakers>
 </document>

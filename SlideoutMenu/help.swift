@@ -11,8 +11,8 @@ import Foundation
 
 class help : UIViewController {
     
-    var headerImage = UIImageView()
-    var headerLabel = UIImageView()
+    var headerView = UIView()
+    var headerLabel = UILabel()
     var slideMenuIcon = UIImageView()
     var slideMenuButton = UIButton()
     
@@ -21,19 +21,23 @@ class help : UIViewController {
         
         print("---- in help view controller ----")
         
-        self.headerImage.frame = CGRectMake(0, 0, self.view.frame.width, self.view.bounds.height / 3.0 + (self.view.bounds.height * 0.02273863068))
-        self.headerImage.image = UIImage(named: "white_header_background_with_shade")
-        self.view.addSubview(headerImage)
+        self.headerView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height / 3.0)
+        self.headerView.backgroundColor = UIColor.eigenBlueColor()
+        self.view.addSubview(self.headerView)
         
-        let headerLabelWidth: CGFloat = self.view.frame.width / 3.3334
-        let headerLabelHeight: CGFloat = headerLabelWidth * 100.0 / 205.0
-        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height / 12.0 - 10, headerLabelWidth, headerLabelHeight)
-        self.headerLabel.image = UIImage(named: "help_title_header")
+        let iconSize: CGFloat = self.view.frame.height * 0.02954
+        
+        let headerTextHeight = self.view.frame.height * 0.057
+        let headerLabelWidth: CGFloat = self.view.frame.width * 2.0 / 3
+        let headerLabelExtraSpace: CGFloat = 3.0
+        self.headerLabel.frame = CGRectMake((self.view.frame.width / 2.0) - (headerLabelWidth / 2.0), self.view.frame.height * 0.061 - headerLabelExtraSpace, headerLabelWidth, headerTextHeight + 2.0 * headerLabelExtraSpace)
+        self.headerLabel.text = "help"
+        self.headerLabel.textAlignment = NSTextAlignment.Center
+        self.headerLabel.textColor = UIColor.whiteColor()
+        self.headerLabel.font = UIFont(name: "AvenirNext-Regular", size: headerTextHeight)
         self.view.addSubview(headerLabel)
-        
-        let iconSize: CGFloat = self.view.frame.height * 0.02464467766
-        
-        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0 - 5
+                
+        let slideMenuIconY = self.headerLabel.frame.origin.y + self.headerLabel.frame.size.height / 2.0 - iconSize / 2.0
         self.slideMenuIcon.frame = CGRectMake(self.view.frame.width * 0.055556, slideMenuIconY, iconSize, iconSize)
         self.slideMenuIcon.image = UIImage(named: "slide_menu_icon")
         self.view.addSubview(slideMenuIcon)
@@ -52,6 +56,10 @@ class help : UIViewController {
         return false
     }
     
+    //color of status bar
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Slide

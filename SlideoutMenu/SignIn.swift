@@ -251,6 +251,7 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
 }
 
 
