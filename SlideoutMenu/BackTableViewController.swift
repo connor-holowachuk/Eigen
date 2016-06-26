@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import UIKit
+import Firebase
+import FirebaseAuth
 
 class BackTableViewController: UITableViewController, UIViewControllerTransitioningDelegate {
     
@@ -21,8 +24,8 @@ class BackTableViewController: UITableViewController, UIViewControllerTransition
         print("---- back table view controller loaded ----")
         super.viewDidLoad()
         TableArray = ["c holowachuk", "dashboard", "profile", "history", "settings", "help", "signOut"]
-        ImagesArray = ["dashboardIcon", "profileIcon", "historyIcon", "settingsIcon", "helpIcon", "signOutIcon"]
-        BlueImagesArray = ["dashboardIcon", "profileIcon", "historyIcon", "settingsIcon", "helpIcon", "signOutIcon"]
+        ImagesArray = ["menu-map_icon-gray", "menu-profile_icon-gray", "menu-history_icon-gray", "menu-settings_icon-gray", "menu-help_icon-gray", "menu-signOut_icon-gray"]
+        BlueImagesArray = ["menu-map_icon-blue", "menu-profile_icon-blue", "menu-history_icon-blue", "menu-settings_icon-blue", "menu-help_icon-blue"]
 
         
         self.tableView.registerClass(ProfileCell.self, forCellReuseIdentifier: TableArray[0])
@@ -88,20 +91,6 @@ class BackTableViewController: UITableViewController, UIViewControllerTransition
             
             return profileCell
             
-        } else if indexPath.row == 8{
-            let signOutCell: MenuCell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row - 2]) as! MenuCell
-            signOutCell.MenuImage.image = UIImage(named: ImagesArray[indexPath.row - 3])
-            signOutCell.MenuLabel.textColor = UIColor.eigenMidGrayTextColor()
-            signOutCell.MenuLabel.font = UIFont(name: "HelveticaNeue-Light", size: 18.0)
-            signOutCell.MenuLabel.text = "sign out"
-            signOutCell.backgroundColor = UIColor(hex: 0xF3F3F3)
-            
-            let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: signOutCell.frame.size.width, height: signOutCell.frame.size.width))
-            selectedView.backgroundColor = UIColor.clearColor()
-            signOutCell.selectedBackgroundView = selectedView
-            
-            return signOutCell
-            
         } else if indexPath.row == 1 || indexPath.row == 7 {
             let spacerCell: MenuCell = tableView.dequeueReusableCellWithIdentifier("spacerCell\(indexPath.row)", forIndexPath: indexPath) as! MenuCell
             spacerCell.backgroundColor = UIColor.eigenLightGrayColor()
@@ -116,35 +105,35 @@ class BackTableViewController: UITableViewController, UIViewControllerTransition
         } else if indexPath.row >= 2 && indexPath.row <= 7 {
             let menuCell: MenuCell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row - 1]) as! MenuCell
             menuCell.hidden = false
-            let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: menuCell.frame.size.width, height: menuCell.frame.size.width))
-            menuCell.selectedBackgroundView = selectedView
             
             let menuTextHeight = self.view.frame.height * 0.0274
             let menuTextY = menuTextHeight
             let extraTextSpace: CGFloat = 4.0
             let menuImageOffsetFromText: CGFloat = 1.0
             
+            let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: menuCell.frame.size.width, height: menuCell.frame.size.height))
+            menuCell.selectedBackgroundView = selectedView
+            
+            menuCell.MenuImage.frame = CGRectMake(self.view.frame.width * 0.05, menuTextY - menuImageOffsetFromText, menuTextHeight + menuImageOffsetFromText * 2.0, menuTextHeight + menuImageOffsetFromText * 2.0)
+            
+            let labelX = menuCell.MenuImage.frame.origin.x + menuCell.MenuImage.frame.width * 2.0
+            menuCell.MenuLabel.frame = CGRectMake(labelX, menuTextY - extraTextSpace / 2.0, self.view.frame.width * 2.0 / 3.0, menuTextHeight + extraTextSpace)
+            menuCell.MenuLabel.text = TableArray[indexPath.row - 1]
+            
             if self.selectedScreenIndex == indexPath.row {
                 menuCell.MenuImage.image = UIImage(named: BlueImagesArray[indexPath.row - 2])
                 
-                menuCell.MenuImage.frame = CGRectMake(self.view.frame.width * 0.0267, menuTextY - menuImageOffsetFromText, menuTextHeight + menuImageOffsetFromText * 2.0, menuTextHeight + menuImageOffsetFromText * 2.0)
-                
-                menuCell.MenuLabel.frame = CGRectMake(self.view.frame.width / 7.5, menuTextY - extraTextSpace / 2.0, self.view.frame.width * 2.0 / 3.0, menuTextHeight + extraTextSpace)
                 menuCell.MenuLabel.textColor = UIColor.eigenBlueColor()
                 menuCell.MenuLabel.font = UIFont(name: "HelveticaNeue-Bold", size: menuTextHeight)
-                menuCell.MenuLabel.text = TableArray[indexPath.row - 1]
                 
                 menuCell.backgroundColor = UIColor.whiteColor()
                 selectedView.backgroundColor = UIColor.clearColor()
                 
             } else {
                 menuCell.MenuImage.image = UIImage(named: ImagesArray[indexPath.row - 2])
-                menuCell.MenuImage.frame = CGRectMake(self.view.frame.width * 0.0267, menuTextY - menuImageOffsetFromText, menuTextHeight + menuImageOffsetFromText * 2.0, menuTextHeight + menuImageOffsetFromText * 2.0)
                 
-                menuCell.MenuLabel.frame = CGRectMake(self.view.frame.width / 7.5, menuTextY - extraTextSpace / 2.0, self.view.frame.width * 2.0 / 3.0, menuTextHeight + extraTextSpace)
                 menuCell.MenuLabel.textColor = UIColor.eigenMidGrayTextColor()
                 menuCell.MenuLabel.font = UIFont(name: "HelveticaNeue-Light", size: menuTextHeight)
-                menuCell.MenuLabel.text = TableArray[indexPath.row - 1]
                 
                 menuCell.backgroundColor = UIColor.eigenLightGrayColor()
                 selectedView.backgroundColor = UIColor.eigenBlueColor()
@@ -154,6 +143,33 @@ class BackTableViewController: UITableViewController, UIViewControllerTransition
             menuCell.addSubview(menuCell.MenuLabel)
             
             return menuCell
+        } else if indexPath.row == 8 {
+            let signOutCell: MenuCell = tableView.dequeueReusableCellWithIdentifier(TableArray[indexPath.row - 2]) as! MenuCell
+            
+            let menuTextHeight = self.view.frame.height * 0.0274
+            let menuTextY = menuTextHeight
+            let extraTextSpace: CGFloat = 4.0
+            let menuImageOffsetFromText: CGFloat = 1.0
+            
+            signOutCell.MenuImage.image = UIImage(named: ImagesArray[indexPath.row - 3])
+            signOutCell.MenuImage.frame = CGRectMake(self.view.frame.width * 0.05, menuTextY - menuImageOffsetFromText, menuTextHeight + menuImageOffsetFromText * 2.0, menuTextHeight + menuImageOffsetFromText * 2.0)
+            
+            let labelX = signOutCell.MenuImage.frame.origin.x + signOutCell.MenuImage.frame.width * 2.0
+            signOutCell.MenuLabel.frame = CGRectMake(labelX, menuTextY - extraTextSpace / 2.0, self.view.frame.width * 2.0 / 3.0, menuTextHeight + extraTextSpace)
+            signOutCell.MenuLabel.textColor = UIColor.eigenMidGrayTextColor()
+            signOutCell.MenuLabel.font = UIFont(name: "HelveticaNeue-Light", size: menuTextHeight)
+            signOutCell.MenuLabel.text = "sign out"
+            signOutCell.backgroundColor = UIColor.eigenLightGrayColor()
+            
+            let selectedView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: signOutCell.frame.size.width, height: signOutCell.frame.size.height))
+            selectedView.backgroundColor = UIColor.clearColor()
+            signOutCell.selectedBackgroundView = selectedView
+            
+            signOutCell.addSubview(signOutCell.MenuImage)
+            signOutCell.addSubview(signOutCell.MenuLabel)
+            
+            return signOutCell
+            
         } else {
             return UITableViewCell()
         }
@@ -200,20 +216,21 @@ class BackTableViewController: UITableViewController, UIViewControllerTransition
             let segueIdentifiers: [String] = ["dashboardSegue", "profileSegue", "historySegue", "settingsSegue", "helpSegue"]
             
             self.performSegueWithIdentifier(segueIdentifiers[indexPath.row - 2], sender: nil)
-            //let nextPageVC = self.storyboard?.instantiateViewControllerWithIdentifier("profile") as? profile
-            //let navController = UINavigationController(rootViewController: self)
-            //navController.pushViewController(nextPageVC!, animated: true)
             
         }
         
         
         if indexPath.row == 8 {
-            
+            /*
             let alertController = UIAlertController(title: "Sign out?", message: "Are you sure you want to sign out?", preferredStyle: UIAlertControllerStyle.Alert)
             alertController.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: nil))
             alertController.addAction(UIAlertAction(title: "No way", style: UIAlertActionStyle.Default, handler: nil))
             
             self.presentViewController(alertController, animated: true, completion: nil)
+            */
+            
+            try! FIRAuth.auth()!.signOut()
+            self.performSegueWithIdentifier("signOutSegue", sender: nil)
         }
     }
     

@@ -11,6 +11,11 @@ import MapKit
 import UIKit
 import QuartzCore
 
+struct defaultKeys {
+    static let keyOne = "firstStringKey"
+    static let keyTwo = "secondStringKey"
+}
+
 extension UIImage {
     class func scaleImageToScale(img: UIImage, scale: Double) -> UIImage {
         let originalSize = img.size

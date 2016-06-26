@@ -164,6 +164,27 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         self.signUpButtonOverlay.frame = CGRectMake(self.signUpLabel1.frame.origin.x - buttonOffset, self.signUpLabel1.frame.origin.y - buttonOffset, totalWidth + (2 * buttonOffset), self.signUpLabel1.frame.height + (2 * buttonOffset))
         self.signUpButtonOverlay.addTarget(self, action: #selector(SignIn.launchSignUp(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(self.signUpButtonOverlay)
+        checkIfLastUserIsSignedIn()
+    }
+    
+    func checkIfLastUserIsSignedIn() {
+        print("checking...")
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let stringOne = defaults.stringForKey(defaultKeys.keyOne) {
+            print(stringOne)
+            
+            FIRAuth.auth()?.addAuthStateDidChangeListener {
+                auth, user in
+                if let user = user {
+                    print("last user: \(user.uid) is signed in")
+                    let mainVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! SWRevealViewController
+                    mainVC.transitioningDelegate = self
+                    self.presentViewController(mainVC, animated: true, completion: nil)
+                } else {
+                    print("last user not signed in")
+                }
+            }
+        }
     }
     
     func showPopUp(errorMessage: Int) {
@@ -208,10 +229,13 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
                 self.showPopUp(self.errorMessage)
                     
             } else {
+                self.saveCurrentUserToMemory((user?.uid)!)
+                
                 print("next VC initiated")
                 let mainVC = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! SWRevealViewController
                 mainVC.transitioningDelegate = self
                 self.presentViewController(mainVC, animated: true, completion: nil)
+
             }
             
         }
@@ -223,7 +247,12 @@ class SignIn: UIViewController, UITextFieldDelegate, UIViewControllerTransitioni
         PopUp().showAlert(nil, buttonColor: self.backgroundColour)
     }
     
-    
+    func saveCurrentUserToMemory(userID: String) {
+        print("logInScreen UID: \(userID)")
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(userID, forKey: defaultKeys.keyOne)
+        defaults.synchronize()
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
